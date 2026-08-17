@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Stackly – We're Here to Help</title>
+  <meta name="description" content="Reach out to Stackly for business consulting inquiries, support, or collaboration. We are here to answer your questions and help you get started." />
+
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Super Cool Preloader CSS -->
+  <link rel="stylesheet" href="preloader.css" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE STYLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111111;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ============================================================
+       NAVBAR (Sticky — identical across site)
+    ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes navSlideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: none;                opacity: 1; }
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { height: 32px; width: auto; object-fit: contain; }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: #222;
+      position: relative; padding: 4px 0; transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px; background: #111; border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover, .nav-links a.active { color: #000; font-weight: 600; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn-login {
+      padding: 8px 24px; font-size: 13.5px; font-weight: 500;
+      border: 1.5px solid #111; border-radius: 50px;
+      background: transparent; color: #111; transition: all 0.25s ease;
+    }
+    .btn-login:hover { background: #111; color: #fff; }
+    .btn-signup {
+      padding: 8px 24px; font-size: 13.5px; font-weight: 500;
+      border: 1.5px solid #111; border-radius: 50px;
+      background: #111; color: #fff; transition: all 0.25s ease;
+    }
+    .btn-signup:hover { background: #2a2a2a; border-color: #2a2a2a; }
+
+    /* Hamburger & Mobile Menu */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: 6px; background: none; border: none; cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #111; border-radius: 2px; transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      width: 100%;
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 20px 24px 32px;
+      flex-direction: column;
+      gap: 0;
+      z-index: 9999;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-15px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      box-sizing: border-box;
+    }
+    .mobile-menu.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu > a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111111;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-menu > a:hover,
+    .mobile-menu > a.active {
+      color: #000000;
+      font-weight: 600;
+      padding-left: 4px;
+    }
+    .mobile-menu > a:last-of-type {
+      border-bottom: none;
+    }
+    .mobile-menu .mob-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mobile-menu .btn-login,
+    .mobile-menu .btn-signup {
+      flex: 1;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: 1.5px solid #111111 !important;
+    }
+    .mobile-menu .btn-login {
+      background: transparent;
+      color: #111111 !important;
+    }
+    .mobile-menu .btn-login:hover {
+      background: #111111;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup {
+      background: #111111 !important;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup:hover {
+      background: #2a2a2a !important;
+      border-color: #2a2a2a !important;
+      color: #ffffff !important;
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .anim-fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .anim-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+
+    /* ============================================================
+       SECTION 1: HERO
+    ============================================================ */
+    .contact-hero {
+      margin-top: 68px;
+      padding: 44px 48px 36px;
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .contact-hero-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .contact-hero-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .contact-hero-header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(30px, 3.6vw, 48px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    .contact-hero-header p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .contact-hero-img {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+    .contact-hero-img img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .contact-hero-img:hover img { transform: scale(1.02); }
+
+    /* ============================================================
+       SECTION 2: GET IN TOUCH + CONTACT FORM
+    ============================================================ */
+    .get-in-touch-section {
+      padding: 48px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .touch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Left Info Column */
+    .touch-left {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .touch-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.2;
+    }
+    .touch-left p.touch-intro {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .info-block h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+    .info-block p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Right Form Card */
+    .form-card-container {
+      background: #ffffff;
+      border: 1.5px solid #eaeaea;
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #dcdcdc;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: #222;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #aaa;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #111;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+    .btn-submit-contact {
+      width: 100%;
+      padding: 14px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      background: #000000;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease;
+      margin-top: 8px;
+    }
+    .btn-submit-contact:hover {
+      background: #222222;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       SECTION 3: FREQUENTLY ASKED QUESTIONS (FAQ Accordion)
+    ============================================================ */
+    .faq-section {
+      padding: 50px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .faq-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: #666;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .faq-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+    .faq-header-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.2;
+    }
+    .btn-ask-anything {
+      padding: 12px 28px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: #111;
+      color: #fff;
+      border-radius: 50px;
+      border: none;
+      transition: background 0.25s ease;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ask-anything:hover { background: #333; }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .faq-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid #ebebeb;
+      color: #222;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, padding 0.2s ease;
+    }
+    .faq-item:first-child { border-top: 1px solid #ebebeb; }
+    .faq-item:hover {
+      background: #fafafa;
+      padding: 20px 16px;
+      border-radius: 8px;
+    }
+    .faq-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: #111;
+      stroke-width: 2;
+      fill: none;
+      transition: transform 0.25s ease;
+    }
+    .faq-item:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ============================================================
+       SECTION 4: MAP BANNER
+    ============================================================ */
+    .map-banner-section {
+      padding: 40px 48px 60px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .map-img-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+      height: 340px;
+    }
+    .map-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================================
+       SITE FOOTER (Identical to all pages)
+    ============================================================ */
+    .site-footer {
+      background: #000000;
+      color: #ffffff;
+      padding: 50px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 0.7fr 0.9fr;
+      gap: 48px;
+      max-width: 1280px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-col-brand { display: flex; flex-direction: column; gap: 20px; }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+    .footer-col-brand h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px; font-weight: 600; line-height: 1.3; color: #fff;
+    }
+
+    .newsletter-form { display: flex; align-items: center; gap: 10px; }
+    .newsletter-input {
+      padding: 10px 18px; border-radius: 50px; border: 1.5px solid #444;
+      background: transparent; color: #fff; font-size: 13.5px; outline: none;
+      width: 100%; max-width: 200px; transition: border-color 0.25s;
+    }
+    .newsletter-input:focus { border-color: #fff; }
+    .newsletter-btn {
+      padding: 10px 22px; border-radius: 50px; border: none;
+      background: #fff; color: #000; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: background 0.25s;
+    }
+    .newsletter-btn:hover { background: #ddd; }
+
+    .footer-brand-desc { font-size: 13px; line-height: 1.65; color: #aaa; max-width: 320px; }
+
+    .footer-col-contact h4, .footer-col-links h4, .footer-col-social h4 {
+      font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 18px;
+    }
+    .footer-contact-info {
+      display: flex; flex-direction: column; gap: 12px;
+      font-size: 13.5px; line-height: 1.6; color: #ccc;
+    }
+    .footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-nav-list a { font-size: 14px; color: #ccc; transition: color 0.2s; }
+    .footer-nav-list a:hover { color: #fff; }
+
+    .social-icons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .social-icon-link {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1.5px solid #444; background: #1a1a1a;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; transition: all 0.25s ease;
+    }
+    .social-icon-link:hover { background: #333; border-color: #666; transform: translateY(-2px); }
+    .social-icon-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .footer-watermark {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 1; user-select: none; pointer-events: none;
+      transform: translateY(30%);
+    }
+    .footer-watermark img {
+      width: 100%; max-width: 100%; display: block;
+      filter: brightness(2.5) contrast(0.5);
+      mix-blend-mode: screen; opacity: 0.85;
+    }
+
+    /* Form Success State */
+    .form-success {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 16px;
+      padding: 48px 32px;
+      animation: fadeInUp 0.4s ease forwards;
+    }
+    .form-success-icon svg {
+      width: 64px;
+      height: 64px;
+    }
+    .form-success h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #111;
+    }
+    .form-success p {
+      font-size: 14.5px;
+      color: #555;
+      line-height: 1.65;
+      max-width: 320px;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+    ============================================================ */
+    @media (max-width: 960px) {
+      .navbar { padding: 0 24px; }
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+
+      .contact-hero { padding: 36px 24px 28px; }
+      .get-in-touch-section { padding: 32px 24px; }
+      .touch-grid { grid-template-columns: 1fr; gap: 36px; }
+
+      .faq-section { padding: 36px 24px; }
+      .faq-header-row { flex-direction: column; gap: 16px; }
+
+      .map-banner-section { padding: 32px 24px 44px; }
+      .map-img-card { height: 240px; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 600px) {
+      .contact-hero { padding: 28px 16px 20px; }
+      .get-in-touch-section { padding: 24px 16px; }
+      .form-card-container { padding: 24px 18px; }
+      .faq-section { padding: 24px 16px; }
+      .map-banner-section { padding: 24px 16px 36px; }
+      .map-img-card { height: 180px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       SITE PRELOADER
+  ============================================================ -->
+  <div id="site-preloader" class="site-preloader" aria-hidden="true">
+    <div class="preloader-ambient-glow"></div>
+    <div class="preloader-content-box">
+      <div class="preloader-brand-wrapper">
+        <div class="preloader-pulse-shadow"></div>
+        <div class="preloader-spin-ring-outer"></div>
+        <div class="preloader-spin-ring-inner"></div>
+        <div class="preloader-logo-core">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" class="preloader-logo-img" />
+        </div>
+      </div>
+      <div class="preloader-meta-wrap">
+        <span class="preloader-brand-title">Stackly</span>
+        <span class="preloader-brand-tagline">Strategic Growth &amp; Advisory</span>
+      </div>
+      <div class="preloader-progress-wrap">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-percent-num" id="preloader-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-logo" aria-label="Stackly Home">
+      <img src="images/Frame 808.webp" alt="Stackly Logo" />
+    </a>
+
+    <nav aria-label="Desktop Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" id="link-home">Home</a></li>
+        <li><a href="about.html" id="link-about">About</a></li>
+        <li><a href="service.html" id="link-service">Service</a></li>
+        <li><a href="blog.html" id="link-blog">Blog</a></li>
+        <li><a href="contact.html" class="active" id="link-contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn-login" id="btn-login-header">Login</a>
+      <a href="signup.html" class="btn-signup" id="btn-signup-header">Signup</a>
+    </div>
+
+    <button class="hamburger" id="hamburger-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  <div class="mobile-menu" id="mobile-dropdown" role="navigation" aria-label="Mobile Navigation">
+    <a href="index.html" id="mob-link-home">Home</a>
+    <a href="about.html" id="mob-link-about">About</a>
+    <a href="service.html" id="mob-link-service">Service</a>
+    <a href="blog.html" id="mob-link-blog">Blog</a>
+    <a href="contact.html" id="mob-link-contact">Contact</a>
+    <div class="mob-btn-group">
+      <a href="login.html" class="btn-login" id="mob-btn-login">Login</a>
+      <a href="signup.html" class="btn-signup" id="mob-btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HERO -->
+  <section class="contact-hero anim-fade-up">
+    <div class="contact-hero-header">
+      <span class="contact-hero-tag">HERE TO HELP</span>
+      <h1>We're here to help.</h1>
+      <p>For inquiries or support related to Optivance, please contact us using the form on this page or use the provided email address and phone number to contact us directly.</p>
+    </div>
+
+    <div class="contact-hero-img">
+      <img src="images/Contact.webp" alt="Typewriter with CONTACT paper" />
+    </div>
+  </section>
+
+  <!-- SECTION 2: GET IN TOUCH + CONTACT FORM -->
+  <section class="get-in-touch-section">
+    <div class="touch-grid">
+
+      <!-- Left Column: Address & Contact Info -->
+      <div class="touch-left anim-fade-up anim-delay-1">
+        <h2>Get in touch with us</h2>
+        <p class="touch-intro">We're here to answer any questions you have and help you get started on your journey to success. Reach out to us through any of the following methods, and a member of our team will be in touch shortly.</p>
+
+        <div class="info-block">
+          <h4>Phone</h4>
+          <p>(123) 456-7890</p>
+        </div>
+
+        <div class="info-block">
+          <h4>Email</h4>
+          <p>hello@example.com</p>
+        </div>
+
+        <div class="info-block">
+          <h4>Address</h4>
+          <p>Evolve Studio, 4th Floor,<br>Khata No 10, Begur - Koppa Rd,<br>In front of SNN Raj Serenity,<br>Suraksha Nagar,<br>Yelenahalli, Begur, Bengaluru,<br>Karnataka - 560068</p>
+        </div>
+
+        <div class="info-block">
+          <h4>Business hours</h4>
+          <p>Monday to Friday: 9:00 AM - 6:00 PM</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Form Container -->
+      <div class="form-card-container anim-fade-up anim-delay-2">
+
+        <form class="contact-form" id="contact-form" onsubmit="
+          event.preventDefault();
+          var name = document.getElementById('contact-name').value.trim();
+          var email = document.getElementById('contact-email').value.trim();
+          var phone = document.getElementById('contact-phone').value.trim();
+          var message = document.getElementById('contact-message').value.trim();
+          if (!name || !email || !phone || !message) { return; }
+          window.location.href = '404.html';
+        ">
+          
+          <div class="form-group">
+            <label for="contact-name">Name <span style="color:#e00;">*</span></label>
+            <input type="text" id="contact-name" placeholder="Enter your name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-email">Email <span style="color:#e00;">*</span></label>
+            <input type="email" id="contact-email" placeholder="Enter your Email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-phone">Phone <span style="color:#e00;">*</span></label>
+            <input type="tel" id="contact-phone" placeholder="Enter your phone number" required />
+          </div>
+
+          <div class="form-group">
+            <label for="contact-message">Message <span style="color:#e00;">*</span></label>
+            <textarea id="contact-message" rows="5" placeholder="Enter your message" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-contact">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: FREQUENTLY ASKED QUESTIONS -->
+  <section class="faq-section">
+    <span class="faq-tag anim-fade-up">Frequently asked questions</span>
+    
+    <div class="faq-header-row anim-fade-up">
+      <div class="faq-header-left">
+        <h2>Got Questions?<br>We've Got Answers</h2>
+      </div>
+      <a href="404.html" class="btn-ask-anything">Ask Us Anything</a>
+    </div>
+
+    <div class="faq-list anim-fade-up">
+      <a href="404.html" class="faq-item">
+        <span>What services does Leanor provide?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>Who can benefit from Leanor's expertise?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>How do you start working with new clients?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>What industries do you serve?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>Can you handle international projects?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>How do you measure success?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>How long does a typical project take?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
+      <a href="404.html" class="faq-item">
+        <span>How can I get started?</span>
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 4: MAP BANNER -->
+  <section class="map-banner-section anim-fade-up">
+    <div class="map-img-card">
+      <img src="images/Frame 1892.webp" alt="Map location of Evolve Studio Begur Bengaluru" />
+    </div>
+  </section>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-grid">
+
+      <div class="footer-col-brand">
+        <div class="footer-logo">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" />
+        </div>
+        <h3>Got Event in Mind?<br>Let's collaborate.</h3>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); const emailInput = this.querySelector('input[type=email]'); if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) { window.location.href = '404.html'; } else if (emailInput) { emailInput.reportValidity(); }">
+          <input type="email" placeholder="Enter your email" class="newsletter-input" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <p class="footer-brand-desc">Delivering expert business consulting solutions that drive growth, efficiency, and measurable results for companies worldwide.</p>
+      </div>
+
+      <div class="footer-col-contact">
+        <h4>Contact us</h4>
+        <div class="footer-contact-info">
+          <p>+1 (800) 555-1234</p>
+          <p>Evolve Studio, 4th Floor,<br>Khata No 10, Begur - Koppa Rd,<br>In front of SNN Raj Serenity,<br>Suraksha Nagar, Yelenahalli,<br>Begur, Bengaluru,<br>Karnataka -560068</p>
+          <p>info@stacklyhealth.com</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+
+      <div class="footer-col-links">
+        <h4>Links</h4>
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-social">
+        <h4>Follow us</h4>
+        <div class="social-icons">
+          <a href="404.html" class="social-icon-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="X Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STACKLY Watermark -->
+    <div class="footer-watermark">
+      <img src="images/fa2d55a2-c87a-4ebe-a1ba-81d49dcd09f5 2.webp" alt="STACKLY Watermark" />
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-toggle');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+
+    function closeMobileMenu() {
+      if (hamburgerBtn && hamburgerBtn.classList.contains('open')) {
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        if (mobileDropdown) {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      }
+    }
+
+    if (hamburgerBtn && mobileDropdown) {
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+          mobileDropdown.style.display = 'flex';
+          requestAnimationFrame(() => mobileDropdown.classList.add('active'));
+        } else {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => { mobileDropdown.style.display = 'none'; }, 350);
+        }
+      });
+
+      mobileDropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
+
+    const isMobile = window.innerWidth <= 768;
+    const observerOptions = {
+      threshold: isMobile ? 0 : 0.08,
+      rootMargin: isMobile ? '0px' : '0px 0px -20px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, 60);
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.anim-fade-up').forEach((el) => {
+      scrollObserver.observe(el);
+    });
+
+    if (isMobile) {
+      document.querySelectorAll('.anim-fade-up').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('is-visible');
+        }
+      });
+    }
+  </script>
+
+  <!-- Super Cool Preloader Script -->
+  <script src="preloader.js"></script>
+</body>
+</html>
+

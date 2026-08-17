@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Client Portal – Stackly</title>
+<meta name="description" content="Track your campaigns, billing and updates from your Stackly team." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+<!-- Super Cool Preloader CSS -->
+<link rel="stylesheet" href="preloader.css" />
+
+<style>
+/* ============================================================
+   TOKENS
+============================================================ */
+:root{
+  --ink:#111111;
+  --paper:#ffffff;
+  --mist:#e4f0f6;
+  --info:#1f5f7a;
+  --ash:#5c5c5c;
+  --ash-light:#9a9a9a;
+  --fog:#f7f8f9;
+  --line:#e9e9e9;
+  --sage:#2f6f4e; --sage-bg:#e7f3ec;
+  --amber:#8a6116; --amber-bg:#faf1de;
+  --rose:#9c3b32; --rose-bg:#f8e8e6;
+  --r-lg:24px;
+  --r-md:16px;
+  --shadow-sm:0 10px 30px rgba(0,0,0,0.04);
+  --shadow-md:0 20px 45px rgba(0,0,0,0.08);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit;}
+ul{list-style:none;}
+table{border-collapse:collapse;width:100%;}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--ink);
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+/* ============================================================
+   TOP NAV
+============================================================ */
+.topnav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:0 48px;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:8px;
+  flex-shrink:0;
+}
+.nav-logo img{
+  height:30px;width:auto;object-fit:contain;
+}
+.nav-tabs{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:1;
+}
+.tab-link{
+  font-size:14px;
+  font-weight:500;
+  color:var(--ash);
+  padding:8px 16px;
+  border-radius:50px;
+  transition:background .2s ease,color .2s ease;
+}
+.tab-link:hover{color:var(--ink);}
+.tab-link.active{color:var(--ink);background:var(--fog);font-weight:600;}
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+}
+.icon-btn{
+  position:relative;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:50%;
+  transition:background .2s ease;
+}
+.icon-btn:hover{background:var(--fog);}
+.icon-btn svg{width:19px;height:19px;stroke:var(--ink);fill:none;stroke-width:1.7;}
+.bell-dot{
+  position:absolute;top:8px;right:9px;
+  width:7px;height:7px;border-radius:50%;
+  background:var(--rose);
+  border:1.5px solid #fff;
+}
+.profile-trigger{
+  display:flex;align-items:center;gap:10px;
+  padding:5px 12px 5px 5px;
+  border-radius:50px;
+  transition:background .2s ease;
+}
+.profile-trigger:hover{background:var(--fog);}
+.avatar{
+  width:32px;height:32px;
+  border-radius:50%;
+  background:var(--ink);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;
+  flex-shrink:0;
+}
+.profile-name{font-size:13.5px;font-weight:500;}
+.caret{width:9px;height:9px;stroke:var(--ash);fill:none;stroke-width:1.6;transition:transform .2s ease;}
+.profile-trigger.open .caret{transform:rotate(180deg);}
+
+.avatar-menu{
+  position:absolute;
+  top:56px;right:48px;
+  width:220px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  box-shadow:var(--shadow-md);
+  padding:8px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+  z-index:1001;
+}
+.avatar-menu.open{opacity:1;visibility:visible;transform:translateY(0);}
+.avatar-menu a{
+  display:block;
+  padding:10px 12px;
+  font-size:13.5px;
+  font-weight:500;
+  border-radius:10px;
+  color:var(--ink);
+}
+.avatar-menu a:hover{background:var(--fog);}
+.avatar-menu .menu-divider{height:1px;background:var(--line);margin:6px 4px;}
+
+/* Hamburger */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  padding:6px;
+  width:36px;height:36px;
+  align-items:center;justify-content:center;
+}
+.hamburger span{
+  display:block;width:20px;height:2px;
+  background:var(--ink);border-radius:2px;
+  transition:all .3s ease;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile menu */
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:68px;left:0;right:0;
+  max-height:calc(100vh - 68px);
+  overflow-y:auto;
+  background:rgba(255,255,255,0.98);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:20px 24px 32px;
+  flex-direction:column;
+  gap:4px;
+  z-index:999;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  transform:translateY(-12px);
+  opacity:0;
+  transition:transform .3s ease,opacity .3s ease;
+}
+.mobile-menu.active{display:flex;transform:translateY(0);opacity:1;}
+.mobile-menu .tab-link{
+  font-size:16px;padding:12px 10px;border-radius:12px;
+}
+.mobile-menu .tab-link.active{background:var(--fog);}
+.mobile-divider{height:1px;background:var(--line);margin:10px 0;}
+.mobile-profile-row{
+  display:flex;align-items:center;gap:12px;
+  padding:8px 10px 14px;
+}
+.mobile-profile-row .profile-name{font-size:14.5px;font-weight:600;display:block;}
+.mobile-profile-row .profile-sub{font-size:12.5px;color:var(--ash);}
+.mobile-menu .menu-link{
+  font-size:15px;font-weight:500;padding:11px 10px;border-radius:12px;color:var(--ink);
+}
+.mobile-menu .menu-link:hover{background:var(--fog);}
+
+/* ============================================================
+   DASHBOARD LAYOUT
+============================================================ */
+.dashboard{
+  margin-top:68px;
+  max-width:1180px;
+  margin-left:auto;margin-right:auto;
+  padding:44px 48px 90px;
+}
+.panel{display:none;}
+.panel.is-active{display:block;animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+.panel-head{margin-bottom:28px;}
+.panel-head h1{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:32px;margin-bottom:6px;}
+.panel-head p{color:var(--ash);font-size:15px;}
+
+/* Stat grid */
+.stat-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:18px;margin-bottom:24px;
+}
+.stat-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);
+  padding:22px 24px;
+}
+.stat-label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ash);}
+.stat-value{display:block;font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:32px;margin:10px 0 6px;line-height:1.1;}
+.stat-value.is-text{font-size:21px;}
+.stat-delta{font-size:12.5px;font-weight:500;}
+.stat-delta.up{color:var(--sage);}
+.stat-delta.down{color:var(--rose);}
+.stat-delta.neutral{color:var(--ash);}
+
+/* Generic section card */
+.section-card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);
+  padding:28px 32px;
+  margin-bottom:24px;
+}
+.card-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+.card-title-row h2{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:19px;}
+.chart-range{font-size:13px;color:var(--ash);}
+
+/* Chart */
+.chart-svg{width:100%;height:auto;display:block;margin-top:14px;}
+.chart-grid{stroke:var(--line);stroke-width:1;}
+.chart-dot{fill:var(--paper);stroke:var(--ink);stroke-width:2;}
+.chart-label{font-family:'Inter',sans-serif;font-size:11px;fill:var(--ash);}
+
+/* Split row */
+.split-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.split-row .section-card{margin-bottom:0;}
+
+/* Mini list (overview campaigns) */
+.mini-list{display:flex;flex-direction:column;margin-top:18px;}
+.mini-row{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.mini-row:last-child{border-bottom:none;padding-bottom:0;}
+.mini-row:first-child{padding-top:0;}
+.mini-row-name{font-size:14px;font-weight:600;}
+.mini-row-sub{font-size:12.5px;color:var(--ash);margin-top:3px;}
+.tag-group{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.tag{
+  font-size:11px;font-weight:500;padding:4px 10px;
+  background:var(--fog);border:1px solid var(--line);
+  border-radius:20px;color:var(--ash);white-space:nowrap;
+  pointer-events:none;cursor:default;user-select:none;
+}
+
+/* Feed */
+.feed-list{display:flex;flex-direction:column;margin-top:18px;}
+.feed-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);}
+.feed-item:last-child{border-bottom:none;padding-bottom:0;}
+.feed-item:first-child{padding-top:0;}
+.feed-avatar{
+  width:34px;height:34px;border-radius:50%;background:var(--mist);color:var(--info);
+  display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;flex-shrink:0;
+}
+.feed-name{font-size:13.5px;font-weight:600;}
+.feed-text{font-size:13.5px;color:var(--ink);margin-top:3px;line-height:1.5;}
+.feed-time{font-size:12px;color:var(--ash-light);margin-top:5px;display:block;}
+
+/* Pills */
+.pill{display:inline-flex;align-items:center;padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;white-space:nowrap;flex-shrink:0;}
+.pill-positive{background:var(--sage-bg);color:var(--sage);}
+.pill-warning{background:var(--amber-bg);color:var(--amber);}
+.pill-info{background:var(--mist);color:var(--info);}
+.pill-neutral{background:var(--fog);color:var(--ash);border:1px solid var(--line);}
+.pill-negative{background:var(--rose-bg);color:var(--rose);}
+
+/* Progress */
+.progress-cell{display:flex;align-items:center;gap:10px;min-width:120px;}
+.progress-track{flex:1;height:6px;background:var(--fog);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--ink);border-radius:4px;}
+.progress-pct{font-size:12.5px;color:var(--ash);flex-shrink:0;width:32px;}
+
+/* Data table */
+.data-table th{
+  text-align:left;font-size:12px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--ash);padding:0 16px 12px;border-bottom:1px solid var(--line);
+}
+.data-table th:first-child,.data-table td:first-child{padding-left:0;}
+.data-table th:last-child,.data-table td:last-child{padding-right:0;}
+.data-table td{padding:16px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.cell-name{font-weight:600;}
+.cell-sub{font-size:12.5px;color:var(--ash);margin-top:2px;}
+
+/* Billing summary */
+.summary-row{display:flex;gap:48px;flex-wrap:wrap;}
+.summary-value{display:block;font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:22px;margin-top:6px;}
+
+/* Footer */
+.dash-footer{
+  padding:32px 48px;text-align:center;
+  color:var(--ash-light);font-size:13px;
+  border-top:1px solid var(--line);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:1024px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:900px){
+  .nav-tabs,.nav-right{display:none;}
+  .hamburger{display:flex;}
+  .topnav{padding:0 24px;}
+  .split-row{grid-template-columns:1fr;}
+}
+@media (max-width:640px){
+  .dashboard{padding:32px 20px 70px;}
+  .section-card{padding:22px 20px;}
+  .panel-head h1{font-size:26px;}
+  .mobile-menu{padding:18px 20px 26px;}
+  .dash-footer{padding:24px 20px;}
+
+  .data-table thead{display:none;}
+  .data-table,.data-table tbody,.data-table tr,.data-table td{display:block;width:100%;}
+  .data-table tr{
+    border:1px solid var(--line);border-radius:var(--r-md);
+    margin-bottom:12px;padding:6px 16px;
+  }
+  .data-table td{
+    border-bottom:none;padding:10px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    text-align:right;
+  }
+  .data-table td::before{
+    content:attr(data-label);font-weight:600;color:var(--ash);
+    text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;
+    flex-shrink:0;
+  }
+  .progress-cell{justify-content:flex-end;}
+}
+@media (max-width:480px){
+  .stat-grid{grid-template-columns:1fr;}
+  .summary-row{gap:24px;}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<!-- ============================================================
+     SITE PRELOADER
+============================================================ -->
+<div id="site-preloader" class="site-preloader" aria-hidden="true">
+  <div class="preloader-ambient-glow"></div>
+  <div class="preloader-content-box">
+    <div class="preloader-brand-wrapper">
+      <div class="preloader-pulse-shadow"></div>
+      <div class="preloader-spin-ring-outer"></div>
+      <div class="preloader-spin-ring-inner"></div>
+      <div class="preloader-logo-core">
+        <img src="images/Frame 808.webp" alt="Stackly Logo" class="preloader-logo-img" />
+      </div>
+    </div>
+    <div class="preloader-meta-wrap">
+      <span class="preloader-brand-title">Stackly</span>
+      <span class="preloader-brand-tagline">Client Strategy Portal</span>
+    </div>
+    <div class="preloader-progress-wrap">
+      <div class="preloader-progress-track">
+        <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+      </div>
+      <div class="preloader-percent-num" id="preloader-percent">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TOP NAV
+============================================================ -->
+<nav class="topnav">
+  <a href="index.html" class="nav-logo" aria-label="Stackly Home">
+    <img src="images/Frame 808.webp" alt="Stackly Logo" />
+  </a>
+
+  <div class="nav-tabs">
+    <a href="#overview" class="tab-link active" data-panel="overview">Overview</a>
+    <a href="#campaigns" class="tab-link" data-panel="campaigns">Campaigns</a>
+    <a href="#billing" class="tab-link" data-panel="billing">Billing</a>
+    <a href="#messages" class="tab-link" data-panel="messages">Messages</a>
+  </div>
+
+  <div class="nav-right">
+    <button class="icon-btn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="bell-dot"></span>
+    </button>
+    <button class="profile-trigger" id="avatarTrigger" aria-haspopup="true" aria-expanded="false">
+      <span class="avatar" id="navAvatar">AC</span>
+      <span class="profile-name" id="navProfileName">Aria Chen</span>
+      <svg class="caret" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg>
+    </button>
+  </div>
+
+  <button class="hamburger" id="hamburgerToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="avatar-menu" id="avatarMenu">
+  <a href="user.html">Account settings</a>
+  <a href="index.html">View public site</a>
+  <div class="menu-divider"></div>
+  <a href="login.html" class="logout-btn">Log out</a>
+</div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#overview" class="tab-link active" data-panel="overview">Overview</a>
+  <a href="#campaigns" class="tab-link" data-panel="campaigns">Campaigns</a>
+  <a href="#billing" class="tab-link" data-panel="billing">Billing</a>
+  <a href="#messages" class="tab-link" data-panel="messages">Messages</a>
+  <div class="mobile-divider"></div>
+  <div class="mobile-profile-row">
+    <span class="avatar" id="mobAvatar">AC</span>
+    <span>
+      <span class="profile-name" id="mobProfileName">Aria Chen</span><br/>
+      <span class="profile-sub">Northfield Roasters</span>
+    </span>
+  </div>
+  <a href="user.html" class="menu-link">Account settings</a>
+  <a href="index.html" class="menu-link">View public site</a>
+  <a href="login.html" class="menu-link logout-btn">Log out</a>
+</div>
+
+<!-- ============================================================
+     DASHBOARD
+============================================================ -->
+<main class="dashboard">
+
+  <!-- OVERVIEW -->
+  <section class="panel is-active" data-panel="overview">
+    <div class="panel-head">
+      <h1 id="welcomeGreeting">Good afternoon, Aria</h1>
+      <p>Here's how Northfield Roasters is tracking this month.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-label">Active campaigns</span>
+        <span class="stat-value">3</span>
+        <span class="stat-delta up">▲ +1 vs last month</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Audience reach</span>
+        <span class="stat-value">128.4K</span>
+        <span class="stat-delta up">▲ +18.6% vs last month</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Engagement rate</span>
+        <span class="stat-value">6.4%</span>
+        <span class="stat-delta up">▲ +0.9 pts vs last month</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Next milestone</span>
+        <span class="stat-value is-text">Spring Launch review</span>
+        <span class="stat-delta neutral">Call scheduled · Aug 19</span>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="card-title-row">
+        <h2>Audience growth</h2>
+        <span class="chart-range">Last 6 months</span>
+      </div>
+      <svg viewBox="0 0 600 210" class="chart-svg" role="img" aria-label="Audience growth trending up from 60,000 in March to 128,000 in August">
+        <defs>
+          <linearGradient id="areaFillUser" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e4f0f6" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#e4f0f6" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <line x1="30" y1="25" x2="570" y2="25" class="chart-grid"/>
+        <line x1="30" y1="90" x2="570" y2="90" class="chart-grid"/>
+        <line x1="30" y1="155" x2="570" y2="155" class="chart-grid"/>
+        <path d="M30,155 L84,143.5 Q138,132 192,136 Q246,140 300,119 Q354,98 408,78.5 Q462,59 516,42 L570,25 L570,170 L30,170 Z" fill="url(#areaFillUser)"/>
+        <path d="M30,155 L84,143.5 Q138,132 192,136 Q246,140 300,119 Q354,98 408,78.5 Q462,59 516,42 L570,25" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="30" cy="155" r="4" class="chart-dot"/>
+        <circle cx="138" cy="132" r="4" class="chart-dot"/>
+        <circle cx="246" cy="140" r="4" class="chart-dot"/>
+        <circle cx="354" cy="98" r="4" class="chart-dot"/>
+        <circle cx="462" cy="59" r="4" class="chart-dot"/>
+        <circle cx="570" cy="25" r="4" class="chart-dot"/>
+        <text x="30" y="192" class="chart-label" text-anchor="middle">Mar</text>
+        <text x="138" y="192" class="chart-label" text-anchor="middle">Apr</text>
+        <text x="246" y="192" class="chart-label" text-anchor="middle">May</text>
+        <text x="354" y="192" class="chart-label" text-anchor="middle">Jun</text>
+        <text x="462" y="192" class="chart-label" text-anchor="middle">Jul</text>
+        <text x="570" y="192" class="chart-label" text-anchor="end">Aug</text>
+      </svg>
+    </div>
+
+    <div class="split-row">
+      <div class="section-card">
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:19px;">Active campaigns</h2>
+        <div class="mini-list">
+          <div class="mini-row">
+            <div>
+              <div class="mini-row-name">Spring Launch</div>
+              <div class="tag-group"><span class="tag">Social</span><span class="tag">Content</span></div>
+            </div>
+            <span class="pill pill-positive">Live</span>
+          </div>
+          <div class="mini-row">
+            <div>
+              <div class="mini-row-name">Roastery Stories</div>
+              <div class="tag-group"><span class="tag">Content</span></div>
+            </div>
+            <span class="pill pill-positive">Live</span>
+          </div>
+          <div class="mini-row">
+            <div>
+              <div class="mini-row-name">Referral Program</div>
+              <div class="tag-group"><span class="tag">Email</span><span class="tag">Social</span></div>
+            </div>
+            <span class="pill pill-positive">Live</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:19px;">Recent updates</h2>
+        <div class="feed-list">
+          <div class="feed-item">
+            <span class="feed-avatar">MG</span>
+            <div>
+              <span class="feed-name">Maya Gómez · Strategist</span>
+              <p class="feed-text">Spring Launch creative is live on Instagram and TikTok — early engagement is already up 22%.</p>
+              <span class="feed-time">2 days ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <span class="feed-avatar">DK</span>
+            <div>
+              <span class="feed-name">Daniel Kim · Account Lead</span>
+              <p class="feed-text">Loyalty Refresh copy is in review — you'll have it back by Thursday.</p>
+              <span class="feed-time">4 days ago</span>
+            </div>
+          </div>
+          <div class="feed-item">
+            <span class="feed-avatar">MG</span>
+            <div>
+              <span class="feed-name">Maya Gómez · Strategist</span>
+              <p class="feed-text">Roastery Stories episode 3 is scheduled for release next week.</p>
+              <span class="feed-time">6 days ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAIGNS -->
+  <section class="panel" data-panel="campaigns">
+    <div class="panel-head">
+      <h1>Campaigns</h1>
+      <p>Every campaign Stackly is running for Northfield Roasters.</p>
+    </div>
+    <div class="section-card">
+      <table class="data-table">
+        <thead>
+          <tr><th>Campaign</th><th>Channels</th><th>Status</th><th>Started</th><th>Progress</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Spring Launch</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Social</span><span class="tag">Content</span></div></td>
+            <td data-label="Status"><span class="pill pill-positive">Live</span></td>
+            <td data-label="Started">Mar 3, 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div><span class="progress-pct">72%</span></div></td>
+          </tr>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Loyalty Refresh</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Email</span></div></td>
+            <td data-label="Status"><span class="pill pill-warning">In review</span></td>
+            <td data-label="Started">Jul 22, 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:40%"></div></div><span class="progress-pct">40%</span></div></td>
+          </tr>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Roastery Stories</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Content</span></div></td>
+            <td data-label="Status"><span class="pill pill-positive">Live</span></td>
+            <td data-label="Started">Jan 14, 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div><span class="progress-pct">85%</span></div></td>
+          </tr>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Holiday Pop-up</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Paid</span><span class="tag">Social</span></div></td>
+            <td data-label="Status"><span class="pill pill-info">Scheduled</span></td>
+            <td data-label="Started">Starts Sep 15, 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:10%"></div></div><span class="progress-pct">10%</span></div></td>
+          </tr>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Sustainability Story</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Content</span></div></td>
+            <td data-label="Status"><span class="pill pill-neutral">Completed</span></td>
+            <td data-label="Started">Jun 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div><span class="progress-pct">100%</span></div></td>
+          </tr>
+          <tr>
+            <td data-label="Campaign" class="cell-name">Referral Program</td>
+            <td data-label="Channels"><div class="tag-group"><span class="tag">Email</span><span class="tag">Social</span></div></td>
+            <td data-label="Status"><span class="pill pill-positive">Live</span></td>
+            <td data-label="Started">Apr 9, 2026</td>
+            <td data-label="Progress"><div class="progress-cell"><div class="progress-track"><div class="progress-fill" style="width:55%"></div></div><span class="progress-pct">55%</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BILLING -->
+  <section class="panel" data-panel="billing">
+    <div class="panel-head">
+      <h1>Billing</h1>
+      <p>Your plan and invoice history.</p>
+    </div>
+
+    <div class="section-card summary-card">
+      <div class="summary-row">
+        <div><span class="stat-label">Current plan</span><span class="summary-value">Growth Partner</span></div>
+        <div><span class="stat-label">Monthly rate</span><span class="summary-value">$4,200</span></div>
+        <div><span class="stat-label">Next billing date</span><span class="summary-value">Sep 1, 2026</span></div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <table class="data-table">
+        <thead>
+          <tr><th>Invoice</th><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Invoice" class="cell-name">INV-2026-09</td>
+            <td data-label="Date">Sep 1, 2026</td>
+            <td data-label="Description">Growth Partner — September</td>
+            <td data-label="Amount">$4,200.00</td>
+            <td data-label="Status"><span class="pill pill-warning">Due</span></td>
+          </tr>
+          <tr>
+            <td data-label="Invoice" class="cell-name">INV-2026-08</td>
+            <td data-label="Date">Aug 1, 2026</td>
+            <td data-label="Description">Growth Partner — August</td>
+            <td data-label="Amount">$4,200.00</td>
+            <td data-label="Status"><span class="pill pill-positive">Paid</span></td>
+          </tr>
+          <tr>
+            <td data-label="Invoice" class="cell-name">INV-2026-07</td>
+            <td data-label="Date">Jul 1, 2026</td>
+            <td data-label="Description">Growth Partner — July</td>
+            <td data-label="Amount">$4,200.00</td>
+            <td data-label="Status"><span class="pill pill-positive">Paid</span></td>
+          </tr>
+          <tr>
+            <td data-label="Invoice" class="cell-name">INV-2026-06</td>
+            <td data-label="Date">Jun 1, 2026</td>
+            <td data-label="Description">Growth Partner — June</td>
+            <td data-label="Amount">$4,200.00</td>
+            <td data-label="Status"><span class="pill pill-positive">Paid</span></td>
+          </tr>
+          <tr>
+            <td data-label="Invoice" class="cell-name">INV-2026-05</td>
+            <td data-label="Date">May 1, 2026</td>
+            <td data-label="Description">Growth Partner + Holiday Pop-up setup</td>
+            <td data-label="Amount">$5,150.00</td>
+            <td data-label="Status"><span class="pill pill-positive">Paid</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MESSAGES -->
+  <section class="panel" data-panel="messages">
+    <div class="panel-head">
+      <h1>Messages</h1>
+      <p>Updates from your Stackly account team.</p>
+    </div>
+    <div class="section-card">
+      <div class="feed-list">
+        <div class="feed-item">
+          <span class="feed-avatar">DK</span>
+          <div>
+            <span class="feed-name">Daniel Kim · Account Lead</span>
+            <p class="feed-text">Quick recap from today's call: we're prioritizing the Holiday Pop-up creative next. More soon.</p>
+            <span class="feed-time">1 day ago</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-avatar">MG</span>
+          <div>
+            <span class="feed-name">Maya Gómez · Strategist</span>
+            <p class="feed-text">Spring Launch creative is live on Instagram and TikTok — early engagement is already up 22%.</p>
+            <span class="feed-time">2 days ago</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-avatar">PA</span>
+          <div>
+            <span class="feed-name">Priya Anand · Analyst</span>
+            <p class="feed-text">Your August performance snapshot is ready — audience reach is up 18.6% month over month.</p>
+            <span class="feed-time">3 days ago</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-avatar">DK</span>
+          <div>
+            <span class="feed-name">Daniel Kim · Account Lead</span>
+            <p class="feed-text">Loyalty Refresh copy is in review — you'll have it back by Thursday.</p>
+            <span class="feed-time">4 days ago</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-avatar">MG</span>
+          <div>
+            <span class="feed-name">Maya Gómez · Strategist</span>
+            <p class="feed-text">Roastery Stories episode 3 is scheduled for release next week.</p>
+            <span class="feed-time">6 days ago</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <span class="feed-avatar">DK</span>
+          <div>
+            <span class="feed-name">Daniel Kim · Account Lead</span>
+            <p class="feed-text">Welcome back — here's what's on deck for the rest of August.</p>
+            <span class="feed-time">12 days ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="dash-footer">© 2026 Stackly. All rights reserved.</footer>
+
+<!-- ============================================================
+     SCRIPT
+============================================================ -->
+<script>
+  // Tab switching
+  const tabLinks = document.querySelectorAll('.tab-link');
+  const panels = document.querySelectorAll('.panel');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const hamburger = document.getElementById('hamburgerToggle');
+
+  function activatePanel(name){
+    panels.forEach(p => p.classList.toggle('is-active', p.dataset.panel === name));
+    tabLinks.forEach(l => l.classList.toggle('active', l.dataset.panel === name));
+    window.scrollTo(0,0);
+  }
+
+  tabLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      activatePanel(link.dataset.panel);
+      mobileMenu.classList.remove('active');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  // Hamburger / mobile menu
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    if(isOpen){
+      mobileMenu.style.display = 'flex';
+      requestAnimationFrame(() => mobileMenu.classList.add('active'));
+    } else {
+      mobileMenu.classList.remove('active');
+      setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+    }
+  });
+
+  // Avatar dropdown
+  const avatarTrigger = document.getElementById('avatarTrigger');
+  const avatarMenu = document.getElementById('avatarMenu');
+  avatarTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = avatarMenu.classList.toggle('open');
+    avatarTrigger.classList.toggle('open', isOpen);
+    avatarTrigger.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', () => {
+    avatarMenu.classList.remove('open');
+    avatarTrigger.classList.remove('open');
+    avatarTrigger.setAttribute('aria-expanded','false');
+  });
+
+  // Dynamic user name and initials
+  function getInitials(name) {
+    if (!name) return 'U';
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 1) {
+      return parts[0].substring(0, Math.min(2, parts[0].length)).toUpperCase();
+    }
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function getTimeGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  }
+
+  function updateUserData() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const nameFromUrl = urlParams.get('name') || urlParams.get('user');
+      const storedName = nameFromUrl || sessionStorage.getItem('stackly_username') || localStorage.getItem('stackly_username');
+
+      if (storedName) {
+        if (nameFromUrl) {
+          localStorage.setItem('stackly_username', nameFromUrl);
+          sessionStorage.setItem('stackly_username', nameFromUrl);
+        }
+
+        const trimmedName = storedName.trim();
+        const initials = getInitials(trimmedName);
+        const firstName = trimmedName.split(/\s+/)[0];
+        const greeting = getTimeGreeting();
+
+        const navName = document.getElementById('navProfileName');
+        const mobName = document.getElementById('mobProfileName');
+        const navAvatar = document.getElementById('navAvatar');
+        const mobAvatar = document.getElementById('mobAvatar');
+        const welcomeGreeting = document.getElementById('welcomeGreeting');
+
+        if (navName) navName.textContent = trimmedName;
+        if (mobName) mobName.textContent = trimmedName;
+        if (navAvatar) navAvatar.textContent = initials;
+        if (mobAvatar) mobAvatar.textContent = initials;
+        if (welcomeGreeting) welcomeGreeting.textContent = `${greeting}, ${firstName}`;
+      }
+    } catch (err) {
+      console.warn('Error reading user data:', err);
+    }
+  }
+
+  // Logout functionality
+  function setupLogout() {
+    document.querySelectorAll('.logout-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try {
+          localStorage.removeItem('stackly_username');
+          localStorage.removeItem('stackly_role');
+          sessionStorage.removeItem('stackly_username');
+          sessionStorage.removeItem('stackly_role');
+        } catch (err) {
+          console.warn('Error clearing storage:', err);
+        }
+        window.location.href = 'login.html';
+      });
+    });
+  }
+
+  // Initialize
+  updateUserData();
+  setupLogout();
+</script>
+
+<!-- Super Cool Preloader Script -->
+<script src="preloader.js"></script>
+</body>
+</html>

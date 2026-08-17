@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | Stackly – Trusted Advisors, Measurable Impact</title>
+  <meta name="description" content="Learn about Stackly's vision, mission, history, and team of experts helping organizations achieve sustainable business growth." />
+  
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Super Cool Preloader CSS -->
+  <link rel="stylesheet" href="preloader.css" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE STYLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111111;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+
+    /* ============================================================
+       NAVBAR (Sticky)
+    ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes navSlideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: none;                opacity: 1; }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #222;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: #000; font-weight: 600; }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-login {
+      padding: 8px 24px;
+      font-size: 13.5px;
+      font-weight: 500;
+      border: 1.5px solid #111111;
+      border-radius: 50px;
+      background: transparent;
+      color: #111111;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-login:hover {
+      background: #111111;
+      color: #ffffff;
+    }
+    .btn-signup {
+      padding: 8px 24px;
+      font-size: 13.5px;
+      font-weight: 500;
+      border: 1.5px solid #111111;
+      border-radius: 50px;
+      background: #111111;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-signup:hover {
+      background: #2a2a2a;
+      border-color: #2a2a2a;
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      width: 100%;
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 20px 24px 32px;
+      flex-direction: column;
+      gap: 0;
+      z-index: 9999;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-15px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      box-sizing: border-box;
+    }
+    .mobile-menu.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu > a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111111;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-menu > a:hover,
+    .mobile-menu > a.active {
+      color: #000000;
+      font-weight: 600;
+      padding-left: 4px;
+    }
+    .mobile-menu > a:last-of-type {
+      border-bottom: none;
+    }
+    .mobile-menu .mob-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mobile-menu .btn-login,
+    .mobile-menu .btn-signup {
+      flex: 1;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: 1.5px solid #111111 !important;
+    }
+    .mobile-menu .btn-login {
+      background: transparent;
+      color: #111111 !important;
+    }
+    .mobile-menu .btn-login:hover {
+      background: #111111;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup {
+      background: #111111 !important;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup:hover {
+      background: #2a2a2a !important;
+      border-color: #2a2a2a !important;
+      color: #ffffff !important;
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS COMMON CLASSES
+    ============================================================ */
+    .anim-fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .anim-fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       SECTION 1: HERO / ABOUT TOP GRID
+    ============================================================ */
+    .about-hero-section {
+      margin-top: 68px;
+      padding: 48px 48px 60px;
+      max-width: 1320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    /* Col 1 Text */
+    .about-hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      padding-right: 12px;
+    }
+
+    .sub-tag {
+      font-size: 14px;
+      font-weight: 500;
+      color: #666666;
+    }
+
+    .about-hero-left h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #111111;
+      letter-spacing: -0.5px;
+    }
+
+    .about-hero-left p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #555555;
+    }
+
+    .trusted-avatars-wrap {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .avatar-row {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-row img {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      margin-left: -10px;
+      object-fit: cover;
+    }
+    .avatar-row img:first-child { margin-left: 0; }
+    .trusted-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #333333;
+      text-transform: uppercase;
+    }
+
+    /* Col 2 Center Image */
+    .about-hero-center-img {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+    }
+    .about-hero-center-img img {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .about-hero-center-img:hover img { transform: scale(1.03); }
+
+    /* Col 3 Right Column (Top photo + Bottom grey card) */
+    .about-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .about-hero-right-top {
+      border-radius: 24px;
+      overflow: hidden;
+      height: 220px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+    }
+    .about-hero-right-top img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 8%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .about-hero-right-top:hover img { transform: scale(1.03); }
+
+    .about-hero-right-card {
+      background: linear-gradient(135deg, #9e9e9e 0%, #888888 100%);
+      border-radius: 24px;
+      padding: 24px 20px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 14px;
+      flex: 1;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    .card-avatars {
+      display: flex;
+      justify-content: center;
+    }
+    .card-avatars img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      margin-left: -10px;
+      object-fit: cover;
+    }
+    .card-avatars img:first-child { margin-left: 0; }
+    .card-joining-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f5f5f5;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       SECTION 2: VISION / MISSION / HISTORY
+    ============================================================ */
+    .vmh-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .vmh-main-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      color: #111;
+    }
+
+    .vmh-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 50px;
+    }
+    .vmh-row:last-child { margin-bottom: 0; }
+
+    .vmh-text h4 {
+      font-size: 15px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .vmh-text h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111;
+      margin-bottom: 16px;
+    }
+
+    .vmh-text p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .vmh-img-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+      height: 290px;
+    }
+    .vmh-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .vmh-img-card:hover img { transform: scale(1.04); }
+
+    /* ============================================================
+       SECTION 3: WHO WE ARE (AI & STRATEGY)
+    ============================================================ */
+    .whoweare-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .whoweare-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .whoweare-left h4 {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #555;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .whoweare-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(22px, 2.4vw, 34px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: #111;
+      margin-bottom: 36px;
+    }
+
+    .whoweare-stats-row {
+      display: flex;
+      gap: 48px;
+    }
+
+    .wwa-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .wwa-stat-num {
+      font-size: clamp(38px, 4vw, 54px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+
+    .wwa-stat-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    .whoweare-right-imgs {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .wwa-img-box {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 155px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    .wwa-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================================
+       SECTION 4: OUR VALUES (4 CARDS GRID)
+    ============================================================ */
+    .values-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .values-header-row {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+
+    .values-header-left h4 {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .values-header-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111;
+    }
+
+    .values-header-right p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    .values-content-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 32px;
+    }
+
+    .values-side-img {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 100%;
+      min-height: 380px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+    .values-side-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+    }
+
+    .values-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .val-card {
+      background: #ffffff;
+      border: 1.5px solid #eaeaea;
+      border-radius: 20px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .val-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.08);
+      border-color: #dcdcdc;
+    }
+
+    .val-icon {
+      width: 44px; height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .val-icon svg {
+      width: 32px; height: 32px;
+      stroke: #111;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .val-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .val-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    /* ============================================================
+       SECTION 5: INNOVATIVE CONSULTING & STATS
+    ============================================================ */
+    .innovative-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .innovative-header {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .innovative-header h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111;
+    }
+
+    .innovative-header p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .innovative-body-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .inn-stats-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .inn-stat-box {
+      background: #ffffff;
+      border: 1.5px solid #eaeaea;
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+      transition: transform 0.3s ease;
+    }
+    .inn-stat-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .inn-stat-box .num {
+      font-size: 38px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .inn-stat-box .label {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .inn-right-photo {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      display: flex;
+      height: 100%;
+      max-height: 300px;
+    }
+    .inn-right-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .inn-right-photo:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ============================================================
+       SECTION 6: WHY CHOOSE US / MEET WITH OUR JOURNEY
+    ============================================================ */
+    .why-choose-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .why-choose-header h4 {
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .why-choose-header h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.6vw, 36px);
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    .journey-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .journey-card {
+      background: #e8e8e8;
+      border-radius: 20px;
+      padding: 24px 32px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .journey-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .journey-card-text h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .journey-card-text p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .journey-card-img {
+      border-radius: 14px;
+      overflow: hidden;
+      height: 140px;
+    }
+    .journey-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+    }
+
+    /* ============================================================
+       SECTION 7: CLIENT REVIEWS
+    ============================================================ */
+    .reviews-section {
+      padding: 50px 24px 70px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .reviews-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.6vw, 36px);
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 36px;
+    }
+
+    .reviews-avatars-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .review-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .review-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .review-avatar.active {
+      width: 110px; height: 110px;
+      border: 4px solid #ffffff;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+      transform: scale(1.05);
+    }
+
+    .review-quote {
+      font-size: clamp(15px, 1.8vw, 18px);
+      line-height: 1.7;
+      color: #333;
+      max-width: 760px;
+      margin: 0 auto 24px;
+    }
+
+    .review-author {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .review-role {
+      font-size: 13.5px;
+      color: #666;
+    }
+
+    /* ============================================================
+       SITE FOOTER
+    ============================================================ */
+    .site-footer {
+      background: #000000;
+      color: #ffffff;
+      padding: 50px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 0.7fr 0.9fr;
+      gap: 48px;
+      max-width: 1280px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+      filter: invert(1);
+    }
+    .footer-col-brand h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #ffffff;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .newsletter-input {
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 1.5px solid #444444;
+      background: transparent;
+      color: #ffffff;
+      font-size: 13.5px;
+      outline: none;
+      width: 100%;
+      max-width: 200px;
+    }
+    .newsletter-input:focus { border-color: #ffffff; }
+    .newsletter-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: none;
+      background: #ffffff;
+      color: #000000;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .newsletter-btn:hover { background: #dddddd; }
+
+    .footer-brand-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #aaaaaa;
+      max-width: 320px;
+    }
+
+    .footer-col-contact h4,
+    .footer-col-links h4,
+    .footer-col-social h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .footer-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cccccc;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-nav-list a {
+      font-size: 14px;
+      color: #cccccc;
+      transition: color 0.2s ease;
+    }
+    .footer-nav-list a:hover { color: #ffffff; }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .social-icon-link {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      border: 1.5px solid #444444;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: all 0.25s ease;
+    }
+    .social-icon-link:hover {
+      background: #333333;
+      border-color: #666666;
+      transform: translateY(-2px);
+    }
+    .social-icon-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* Giant STACKLY Watermark */
+    .footer-watermark {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+      transform: translateY(30%);
+    }
+    .footer-watermark img {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      filter: brightness(2.5) contrast(0.5);
+      mix-blend-mode: screen;
+      opacity: 0.85;
+    }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+    ============================================================ */
+    @media (max-width: 900px) {
+      .navbar {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        width: 100%;
+        z-index: 10000;
+        padding: 0 24px;
+      }
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+
+      .about-hero-section { padding: 40px 24px; }
+      .about-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-hero-center-img img { min-height: 280px; }
+
+      .vmh-section { padding: 40px 24px; }
+      .vmh-row { grid-template-columns: 1fr; gap: 24px; }
+      .vmh-row:nth-child(even) .vmh-text { order: 1; }
+      .vmh-row:nth-child(even) .vmh-img-card { order: 2; }
+      .vmh-img-card { height: 240px; }
+
+      .whoweare-section { padding: 40px 24px; }
+      .whoweare-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .values-section { padding: 40px 24px; }
+      .values-header-row { grid-template-columns: 1fr; gap: 16px; }
+      .values-content-grid { grid-template-columns: 1fr; gap: 24px; }
+      .values-cards-grid { grid-template-columns: 1fr 1fr; }
+
+      .innovative-section { padding: 40px 24px; }
+      .innovative-body-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      .why-choose-section { padding: 40px 24px; }
+      .journey-card { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+      .journey-card-img { height: 140px; }
+
+      .reviews-section { padding: 40px 24px 60px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 600px) {
+      .about-hero-section { padding: 30px 16px; }
+      .values-cards-grid { grid-template-columns: 1fr; }
+      .whoweare-stats-row { gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .reviews-avatars-row { gap: 12px; }
+      .review-avatar { width: 64px; height: 64px; }
+      .review-avatar.active { width: 80px; height: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       SITE PRELOADER
+  ============================================================ -->
+  <div id="site-preloader" class="site-preloader" aria-hidden="true">
+    <div class="preloader-ambient-glow"></div>
+    <div class="preloader-content-box">
+      <div class="preloader-brand-wrapper">
+        <div class="preloader-pulse-shadow"></div>
+        <div class="preloader-spin-ring-outer"></div>
+        <div class="preloader-spin-ring-inner"></div>
+        <div class="preloader-logo-core">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" class="preloader-logo-img" />
+        </div>
+      </div>
+      <div class="preloader-meta-wrap">
+        <span class="preloader-brand-title">Stackly</span>
+        <span class="preloader-brand-tagline">Strategic Growth &amp; Advisory</span>
+      </div>
+      <div class="preloader-progress-wrap">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-percent-num" id="preloader-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-logo" aria-label="Stackly Home">
+      <img src="images/Frame 808.webp" alt="Stackly Logo" />
+    </a>
+
+    <nav aria-label="Desktop Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" id="link-home">Home</a></li>
+        <li><a href="about.html" class="active" id="link-about">About</a></li>
+        <li><a href="service.html" id="link-service">Service</a></li>
+        <li><a href="blog.html" id="link-blog">Blog</a></li>
+        <li><a href="contact.html" id="link-contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn-login" id="btn-login-header">Login</a>
+      <a href="signup.html" class="btn-signup" id="btn-signup-header">Signup</a>
+    </div>
+
+    <button class="hamburger" id="hamburger-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  <div class="mobile-menu" id="mobile-dropdown" role="navigation" aria-label="Mobile Navigation">
+    <a href="index.html" id="mob-link-home">Home</a>
+    <a href="about.html" id="mob-link-about">About</a>
+    <a href="service.html" id="mob-link-service">Service</a>
+    <a href="blog.html" id="mob-link-blog">Blog</a>
+    <a href="contact.html" id="mob-link-contact">Contact</a>
+    <div class="mob-btn-group">
+      <a href="login.html" class="btn-login" id="mob-btn-login">Login</a>
+      <a href="signup.html" class="btn-signup" id="mob-btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HERO -->
+  <section class="about-hero-section">
+    <div class="about-hero-grid anim-fade-up">
+      
+      <!-- Col 1 Text -->
+      <div class="about-hero-left">
+        <span class="sub-tag">About us</span>
+        <h1>Trusted Advisors,<br>Measurable Impact</h1>
+        <p>We help organizations improve performance, make smarter decisions, and achieve sustainable growth through strategic consulting and data-driven insights.</p>
+        
+        <div class="trusted-avatars-wrap">
+          <div class="avatar-row">
+            <img src="images/Ellipse 10.webp" alt="Avatar 1" />
+            <img src="images/Ellipse 11.webp" alt="Avatar 2" />
+            <img src="images/Ellipse 12.webp" alt="Avatar 3" />
+            <img src="images/Ellipse 13.webp" alt="Avatar 4" />
+          </div>
+          <span class="trusted-label">TRUSTED BY WORLDWIDE BUSINESS</span>
+        </div>
+      </div>
+
+      <!-- Col 2 Center Chart Image -->
+      <div class="about-hero-center-img">
+        <img src="images/Rectangle 127.webp" alt="Data-driven stock chart & laptop" />
+      </div>
+
+      <!-- Col 3 Right Column -->
+      <div class="about-hero-right">
+        <div class="about-hero-right-top">
+          <img src="images/About-2.webp" alt="Executive presentation" />
+        </div>
+        
+        <div class="about-hero-right-card">
+          <div class="card-avatars">
+            <img src="images/Ellipse 10.webp" alt="Member 1" />
+            <img src="images/Ellipse 11.webp" alt="Member 2" />
+            <img src="images/Ellipse 12.webp" alt="Member 3" />
+            <img src="images/Ellipse 13.webp" alt="Member 4" />
+          </div>
+          <p class="card-joining-text">10,000+ people already<br>joined the Optivance.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: VISION / MISSION / HISTORY -->
+  <section class="vmh-section">
+    <h2 class="vmh-main-title anim-fade-up">Visson /Misson / History</h2>
+
+    <!-- Vision Row -->
+    <div class="vmh-row anim-fade-up">
+      <div class="vmh-text">
+        <h4>Visson</h4>
+        <h3>Empowering Businesses to Thrive</h3>
+        <p>We envisage a world in which all businesses, regardless of size or industry, reach their full potential. Our objective is to provide firms with customized strategies, innovative solutions, and expert help as they negotiate the challenges of today's business landscape. Through collaborative collaborations, we hope to stimulate growth, foster resilience, and drive long-term success for your business.</p>
+      </div>
+      <div class="vmh-img-card">
+        <img src="images/Rectangle 120.webp" alt="Empowerment typewriter" />
+      </div>
+    </div>
+
+    <!-- Mission Row (Reversed) -->
+    <div class="vmh-row anim-fade-up">
+      <div class="vmh-img-card">
+        <img src="images/Rectangle 120 (1).webp" alt="Executive celebrating business success" />
+      </div>
+      <div class="vmh-text">
+        <h4>Misson</h4>
+        <h3>Guiding your Business for Success</h3>
+        <p>We are committed to helping businesses prosper in today's dynamic economy. We help firms overcome problems, grasp opportunities, and achieve long-term growth by providing strategic guidance and specialized solutions. Our skilled advisors provide a wealth of knowledge from a variety of industries, providing bespoke solutions that correspond with your specific objectives.</p>
+      </div>
+    </div>
+
+    <!-- History Row -->
+    <div class="vmh-row anim-fade-up">
+      <div class="vmh-text">
+        <h4>History</h4>
+        <h3>Navigating Business Histories for Success</h3>
+        <p>Our seasoned professionals meticulously explore the historical narratives spanning various industries, extracting invaluable insights and enduring lessons. They traverse through the evolution of ancient civilizations to the digital upheaval of the twenty-first century. In this journey, we uncover the intricate connections that tie historical triumphs and setbacks to contemporary opportunities ..</p>
+      </div>
+      <div class="vmh-img-card">
+        <img src="images/Rectangle 120 (2).webp" alt="Business History report" />
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SECTION 3: WHO WE ARE -->
+  <section class="whoweare-section">
+    <div class="whoweare-grid anim-fade-up">
+      
+      <div class="whoweare-left">
+        <h4>WHO WE ARE</h4>
+        <h2>We help businesses adopt AI with confidence by combining strategy and engineering to deliver real results.</h2>
+        
+        <div class="whoweare-stats-row">
+          <div class="wwa-stat-item">
+            <span class="wwa-stat-num">80%</span>
+            <span class="wwa-stat-label">AI-Driven Decisions</span>
+          </div>
+          <div class="wwa-stat-item">
+            <span class="wwa-stat-num">99%</span>
+            <span class="wwa-stat-label">Seamless Uptime</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="whoweare-right-imgs">
+        <div class="wwa-img-box">
+          <img src="images/Rectangle 124.webp" alt="Strategy notes paper" />
+        </div>
+        <div class="wwa-img-box">
+          <img src="images/Rectangle 125.webp" alt="Marketing Strategy book" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: OUR VALUES -->
+  <section class="values-section">
+    
+    <div class="values-header-row anim-fade-up">
+      <div class="values-header-left">
+        <h4>OUR VALUES</h4>
+        <h2>Principles That<br>Guide Our Work</h2>
+      </div>
+      <div class="values-header-right">
+        <p>Our values shape how we think, collaborate, and deliver meaningful results for the businesses we work with.</p>
+      </div>
+    </div>
+
+    <div class="values-content-grid anim-fade-up">
+      
+      <!-- Side Image -->
+      <div class="values-side-img">
+        <img src="images/Rectangle 119.webp" alt="Team strategy workspace" />
+      </div>
+
+      <!-- 2x2 Cards Grid -->
+      <div class="values-cards-grid">
+        
+        <!-- Card 1 -->
+        <div class="val-card">
+          <div class="val-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-5.45 8-12V5l-8-3z"/><path d="M12 6a3 3 0 100 6 3 3 0 000-6z"/></svg>
+          </div>
+          <h3>Integrity</h3>
+          <p>We design strategies focused on measurable outcomes that support sustainable growth.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="val-card">
+          <div class="val-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 21h6v-2H9v2zm3-19C7.03 2 3 6.03 3 11c0 3.12 1.6 5.86 4 7.42V20c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1.58c2.4-1.56 4-4.3 4-7.42 0-4.97-4.03-9-9-9z"/></svg>
+          </div>
+          <h3>Strategic Thinking</h3>
+          <p>We approach every challenge with thoughtful analysis and clear strategies designed to create measurable impact.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="val-card">
+          <div class="val-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          </div>
+          <h3>Collaboration</h3>
+          <p>We design strategies focused on measurable outcomes that support sustainable growth.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="val-card">
+          <div class="val-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+          </div>
+          <h3>Continuous Improvement</h3>
+          <p>We believe in constant learning and improvement to deliver better solutions and long-term value.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SECTION 5: INNOVATIVE CONSULTING -->
+  <section class="innovative-section">
+    
+    <div class="innovative-header anim-fade-up">
+      <h2>Innovative consulting for a transformed business landscape</h2>
+      <p>Transform your business with consultingo's specialized consulting solutions crafted to propel your journey to success. Our deep industry knowledge and strategic approach ensure we guide organizations through complexities, enabling them to achieve impactful growth and enduring outcomes.</p>
+    </div>
+
+    <div class="innovative-body-grid anim-fade-up">
+      
+      <div class="inn-stats-col">
+        <div class="inn-stat-box">
+          <div class="num">50+</div>
+          <div class="label">Released projects</div>
+        </div>
+        
+        <div class="inn-stat-box">
+          <div class="num">23</div>
+          <div class="label">Awesome clients</div>
+        </div>
+        
+        <div class="inn-stat-box">
+          <div class="num">6</div>
+          <div class="label">Consultants team</div>
+        </div>
+      </div>
+
+      <div class="inn-right-photo">
+        <img src="images/Rectangle 121.webp" alt="Consultants reviewing strategy board" />
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SECTION 6: WHY CHOOSE US -->
+  <section class="why-choose-section">
+    
+    <div class="why-choose-header anim-fade-up">
+      <h4>WHY CHOOSE US</h4>
+      <h2>Meet with our journey</h2>
+    </div>
+
+    <div class="journey-cards-list anim-fade-up">
+      
+      <div class="journey-card">
+        <div class="journey-card-text">
+          <h3>Proven Expertise</h3>
+          <p>Decades of experience in financial planning, investments, and roi dope business strategy.</p>
+        </div>
+        <div class="journey-card-img">
+          <img src="images/Rectangle 123.webp" alt="Financial planning session" />
+        </div>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-text">
+          <h3>Technology-Driven</h3>
+          <p>Empowering your growth with smart tools, automation, and data-driven insights for faster, smarter decisions.</p>
+        </div>
+        <div class="journey-card-img">
+          <img src="images/Rectangle 126.webp" alt="Technology and automation strategy" />
+        </div>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-text">
+          <h3>Proven Expertise</h3>
+          <p>Backed by decades of success in finance, strategy, and ROI-focused solutions that deliver real results.</p>
+        </div>
+        <div class="journey-card-img">
+          <img src="images/Rectangle 129.webp" alt="Business growth and ROI analysis" />
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SECTION 7: CLIENT REVIEWS -->
+  <section class="reviews-section anim-fade-up">
+    
+    <h2 class="reviews-title">Client reviews</h2>
+
+    <div class="reviews-avatars-row">
+      <div class="review-avatar">
+        <img src="images/Ellipse 10.webp" alt="Client 1" />
+      </div>
+      <div class="review-avatar active">
+        <img src="images/Ellipse 11.webp" alt="Client 2" />
+      </div>
+      <div class="review-avatar">
+        <img src="images/Ellipse 12.webp" alt="Client 3" />
+      </div>
+    </div>
+
+    <p class="review-quote">
+      "Our organization benefited greatly from working with the agency. Their intelligent tactics and tailored approach guided us through difficult circumstances. I highly endorse their services."
+    </p>
+
+    <h4 class="review-author">Sarah Johnson</h4>
+    <p class="review-role">CEO of Techpro Solutions</p>
+
+  </section>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer" id="footer">
+    
+    <div class="footer-grid">
+      
+      <div class="footer-col-brand">
+        <div class="footer-logo">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" />
+        </div>
+        
+        <h3>Got Event in Mind?<br>Let's collaborate.</h3>
+
+        <form class="newsletter-form" onsubmit="event.preventDefault(); const emailInput = this.querySelector('input[type=email]'); if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) { window.location.href = '404.html'; } else if (emailInput) { emailInput.reportValidity(); }">
+          <input type="email" placeholder="Enter your email" class="newsletter-input" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+
+        <p class="footer-brand-desc">Delivering expert business consulting solutions that drive growth, efficiency, and measurable results for companies worldwide.</p>
+      </div>
+
+      <div class="footer-col-contact">
+        <h4>Contact us</h4>
+        <div class="footer-contact-info">
+          <p>+1 (800) 555-1234</p>
+          <p>Evolve Studio, 4th Floor,<br>Khata No 10, Begur - Koppa Rd,<br>In front of SNN Raj Serenity,<br>Suraksha Nagar, Yelenahalli,<br>Begur, Bengaluru,<br>Karnataka -560068</p>
+          <p>info@stacklyhealth.com</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+
+      <div class="footer-col-links">
+        <h4>Links</h4>
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-social">
+        <h4>Follow us</h4>
+        <div class="social-icons">
+          <a href="404.html" class="social-icon-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="X Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-watermark">
+      <img src="images/fa2d55a2-c87a-4ebe-a1ba-81d49dcd09f5 2.webp" alt="STACKLY Watermark" />
+    </div>
+
+  </footer>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-toggle');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+
+    function closeMobileMenu() {
+      if (hamburgerBtn && hamburgerBtn.classList.contains('open')) {
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        if (mobileDropdown) {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      }
+    }
+
+    if (hamburgerBtn && mobileDropdown) {
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+          mobileDropdown.style.display = 'flex';
+          requestAnimationFrame(() => {
+            mobileDropdown.classList.add('active');
+          });
+        } else {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      });
+
+      mobileDropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
+
+    const isMobile = window.innerWidth <= 768;
+    const observerOptions = {
+      threshold: isMobile ? 0 : 0.08,
+      rootMargin: isMobile ? '0px' : '0px 0px -20px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, 60);
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.anim-fade-up').forEach((el) => {
+      scrollObserver.observe(el);
+    });
+
+    if (isMobile) {
+      document.querySelectorAll('.anim-fade-up').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('is-visible');
+        }
+      });
+    }
+  </script>
+
+  <!-- Super Cool Preloader Script -->
+  <script src="preloader.js"></script>
+</body>
+</html>

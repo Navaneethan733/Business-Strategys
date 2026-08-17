@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Stackly – Smarter Business Starts Here</title>
+  <meta name="description" content="Explore insights, articles, and expert guidance on process improvement, AI strategy, leadership, and business execution from Stackly." />
+
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Super Cool Preloader CSS -->
+  <link rel="stylesheet" href="preloader.css" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE STYLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111111;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ============================================================
+       NAVBAR (Sticky — identical to index, about, service)
+    ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      width: 100%;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes navSlideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to   { transform: none;                opacity: 1; }
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { height: 32px; width: auto; object-fit: contain; }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: #222;
+      position: relative; padding: 4px 0; transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 2px; background: #111; border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover, .nav-links a.active { color: #000; font-weight: 600; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn-login {
+      padding: 8px 24px; font-size: 13.5px; font-weight: 500;
+      border: 1.5px solid #111; border-radius: 50px;
+      background: transparent; color: #111; transition: all 0.25s ease;
+    }
+    .btn-login:hover { background: #111; color: #fff; }
+    .btn-signup {
+      padding: 8px 24px; font-size: 13.5px; font-weight: 500;
+      border: 1.5px solid #111; border-radius: 50px;
+      background: #111; color: #fff; transition: all 0.25s ease;
+    }
+    .btn-signup:hover { background: #2a2a2a; border-color: #2a2a2a; }
+
+    /* Hamburger & Mobile Menu */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      padding: 6px; background: none; border: none; cursor: pointer;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #111; border-radius: 2px; transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      width: 100%;
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 20px 24px 32px;
+      flex-direction: column;
+      gap: 0;
+      z-index: 9999;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-15px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      box-sizing: border-box;
+    }
+    .mobile-menu.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu > a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111111;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-menu > a:hover,
+    .mobile-menu > a.active {
+      color: #000000;
+      font-weight: 600;
+      padding-left: 4px;
+    }
+    .mobile-menu > a:last-of-type {
+      border-bottom: none;
+    }
+    .mobile-menu .mob-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mobile-menu .btn-login,
+    .mobile-menu .btn-signup {
+      flex: 1;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: 1.5px solid #111111 !important;
+    }
+    .mobile-menu .btn-login {
+      background: transparent;
+      color: #111111 !important;
+    }
+    .mobile-menu .btn-login:hover {
+      background: #111111;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup {
+      background: #111111 !important;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup:hover {
+      background: #2a2a2a !important;
+      border-color: #2a2a2a !important;
+      color: #ffffff !important;
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .anim-fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .anim-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+
+    /* ============================================================
+       SECTION 1: BLOG HERO
+    ============================================================ */
+    .blog-hero {
+      margin-top: 68px;
+      padding: 44px 24px 36px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .blog-hero-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .blog-hero-header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(30px, 3.6vw, 48px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    .blog-hero-header p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .blog-hero-img {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+    .blog-hero-img img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .blog-hero-img:hover img { transform: scale(1.02); }
+
+    /* ============================================================
+       SECTION 2: 6 FEATURED BLOG CARDS GRID
+    ============================================================ */
+    .featured-blog-section {
+      padding: 48px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 36px;
+      row-gap: 40px;
+    }
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      cursor: pointer;
+    }
+    .blog-card-img {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 250px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-card-img img { transform: scale(1.05); }
+
+    .blog-card-meta {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #777;
+      text-transform: capitalize;
+    }
+
+    .blog-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(18px, 1.8vw, 22px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: #111;
+      transition: color 0.25s ease;
+    }
+    .blog-card:hover h3 { color: #333; }
+
+    .blog-card p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* ============================================================
+       SECTION 3: LATEST ARTICLES (3 CARDS PER ROW)
+    ============================================================ */
+    .latest-articles-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .section-title-center {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 700;
+      text-align: center;
+      color: #111;
+      margin-bottom: 40px;
+    }
+    .latest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 36px;
+    }
+    .latest-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .latest-card-img {
+      border-radius: 18px;
+      overflow: hidden;
+      height: 215px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .latest-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .latest-card:hover .latest-card-img img { transform: scale(1.05); }
+
+    .latest-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #777;
+    }
+
+    .latest-card h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(16px, 1.5vw, 19px);
+      font-weight: 700;
+      line-height: 1.3;
+      color: #111;
+    }
+
+    /* ============================================================
+       SECTION 4: EXPLORE OUR LATEST INSIGHTS
+    ============================================================ */
+    .insights-section {
+      padding: 50px 24px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .insights-header-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+    .insights-header-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.8vw, 36px);
+      font-weight: 700;
+      line-height: 1.25;
+      color: #111;
+    }
+    .insights-header-right p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #555;
+    }
+
+    .insights-mid-banner {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 320px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    .insights-mid-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .insights-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .insight-card-item {
+      background: #ffffff;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .insight-card-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.08);
+      border-color: #dcdcdc;
+    }
+
+    .insight-card-photo {
+      border-radius: 14px;
+      overflow: hidden;
+      height: 210px;
+    }
+    .insight-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .insight-card-item:hover .insight-card-photo img { transform: scale(1.04); }
+
+    /* Focal point alignment for people to ensure full faces and expressions are visible */
+    img[src*="Blog-7.webp"] {
+      object-position: center 12% !important;
+    }
+    img[src*="Blog-13.webp"] {
+      object-position: center 6% !important;
+    }
+    img[src*="Blog-16.webp"] {
+      object-position: center 4% !important;
+    }
+    img[src*="Blog-3.webp"],
+    img[src*="Blog-6.webp"],
+    img[src*="Blog-8.webp"],
+    img[src*="Blog-10.webp"],
+    img[src*="Blog-17.webp"],
+    img[src*="Blog-19.webp"],
+    img[src*="Blog-20.webp"] {
+      object-position: center 15% !important;
+    }
+
+    .insight-meta-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: #777;
+      font-weight: 500;
+    }
+    .insight-meta-info .category { font-weight: 600; color: #444; }
+
+    .insight-card-item h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(17px, 1.7vw, 21px);
+      font-weight: 700;
+      color: #111;
+      line-height: 1.3;
+    }
+
+    .btn-read-more {
+      align-self: flex-start;
+      padding: 10px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      transition: background 0.25s ease;
+      margin-top: 4px;
+    }
+    .btn-read-more:hover { background: #333; }
+
+    /* ============================================================
+       SECTION 5: CTA BANNER
+    ============================================================ */
+    .cta-banner-section {
+      padding: 40px 24px 60px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .cta-banner-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+      padding: 32px 24px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    }
+    .cta-banner-card img.bg-img {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .cta-banner-card .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 2;
+    }
+    .cta-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .cta-content h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .btn-contact-cta {
+      padding: 12px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 50px;
+      transition: background 0.25s ease, transform 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-contact-cta:hover { background: #dddddd; transform: translateY(-2px); }
+
+    /* ============================================================
+       SITE FOOTER (Identical to index, about, service)
+    ============================================================ */
+    .site-footer {
+      background: #000000;
+      color: #ffffff;
+      padding: 50px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 0.7fr 0.9fr;
+      gap: 48px;
+      max-width: 1280px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-col-brand { display: flex; flex-direction: column; gap: 20px; }
+    .footer-logo img { height: 36px; width: auto; filter: invert(1); }
+    .footer-col-brand h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px; font-weight: 600; line-height: 1.3; color: #fff;
+    }
+
+    .newsletter-form { display: flex; align-items: center; gap: 10px; }
+    .newsletter-input {
+      padding: 10px 18px; border-radius: 50px; border: 1.5px solid #444;
+      background: transparent; color: #fff; font-size: 13.5px; outline: none;
+      width: 100%; max-width: 200px; transition: border-color 0.25s;
+    }
+    .newsletter-input:focus { border-color: #fff; }
+    .newsletter-btn {
+      padding: 10px 22px; border-radius: 50px; border: none;
+      background: #fff; color: #000; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; transition: background 0.25s;
+    }
+    .newsletter-btn:hover { background: #ddd; }
+
+    .footer-brand-desc { font-size: 13px; line-height: 1.65; color: #aaa; max-width: 320px; }
+
+    .footer-col-contact h4, .footer-col-links h4, .footer-col-social h4 {
+      font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 18px;
+    }
+    .footer-contact-info {
+      display: flex; flex-direction: column; gap: 12px;
+      font-size: 13.5px; line-height: 1.6; color: #ccc;
+    }
+    .footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-nav-list a { font-size: 14px; color: #ccc; transition: color 0.2s; }
+    .footer-nav-list a:hover { color: #fff; }
+
+    .social-icons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .social-icon-link {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1.5px solid #444; background: #1a1a1a;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; transition: all 0.25s ease;
+    }
+    .social-icon-link:hover { background: #333; border-color: #666; transform: translateY(-2px); }
+    .social-icon-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .footer-watermark {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 1; user-select: none; pointer-events: none;
+      transform: translateY(30%);
+    }
+    .footer-watermark img {
+      width: 100%; max-width: 100%; display: block;
+      filter: brightness(2.5) contrast(0.5);
+      mix-blend-mode: screen; opacity: 0.85;
+    }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+    ============================================================ */
+    @media (max-width: 960px) {
+      .navbar { padding: 0 24px; }
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+
+      .blog-hero { padding: 36px 24px 28px; }
+      .featured-blog-section { padding: 32px 24px; }
+      .featured-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .latest-articles-section { padding: 36px 24px; }
+      .latest-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+      .insights-section { padding: 36px 24px; }
+      .insights-header-row { grid-template-columns: 1fr; gap: 16px; }
+      .insights-cards-grid { grid-template-columns: 1fr; gap: 24px; }
+      .insights-mid-banner { height: 220px; }
+
+      .cta-banner-section { padding: 32px 24px 50px; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 600px) {
+      .blog-hero { padding: 28px 16px 20px; }
+      .featured-blog-section { padding: 24px 16px; }
+      .latest-articles-section { padding: 24px 16px; }
+      .latest-grid { grid-template-columns: 1fr; }
+      .insights-section { padding: 24px 16px; }
+      .cta-banner-section { padding: 24px 16px 40px; }
+      .cta-banner-card { height: 240px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       SITE PRELOADER
+  ============================================================ -->
+  <div id="site-preloader" class="site-preloader" aria-hidden="true">
+    <div class="preloader-ambient-glow"></div>
+    <div class="preloader-content-box">
+      <div class="preloader-brand-wrapper">
+        <div class="preloader-pulse-shadow"></div>
+        <div class="preloader-spin-ring-outer"></div>
+        <div class="preloader-spin-ring-inner"></div>
+        <div class="preloader-logo-core">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" class="preloader-logo-img" />
+        </div>
+      </div>
+      <div class="preloader-meta-wrap">
+        <span class="preloader-brand-title">Stackly</span>
+        <span class="preloader-brand-tagline">Strategic Growth &amp; Advisory</span>
+      </div>
+      <div class="preloader-progress-wrap">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-percent-num" id="preloader-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-logo" aria-label="Stackly Home">
+      <img src="images/Frame 808.webp" alt="Stackly Logo" />
+    </a>
+
+    <nav aria-label="Desktop Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" id="link-home">Home</a></li>
+        <li><a href="about.html" id="link-about">About</a></li>
+        <li><a href="service.html" id="link-service">Service</a></li>
+        <li><a href="blog.html" class="active" id="link-blog">Blog</a></li>
+        <li><a href="contact.html" id="link-contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn-login" id="btn-login-header">Login</a>
+      <a href="signup.html" class="btn-signup" id="btn-signup-header">Signup</a>
+    </div>
+
+    <button class="hamburger" id="hamburger-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  <div class="mobile-menu" id="mobile-dropdown" role="navigation" aria-label="Mobile Navigation">
+    <a href="index.html" id="mob-link-home">Home</a>
+    <a href="about.html" id="mob-link-about">About</a>
+    <a href="service.html" id="mob-link-service">Service</a>
+    <a href="blog.html" id="mob-link-blog">Blog</a>
+    <a href="contact.html" id="mob-link-contact">Contact</a>
+    <div class="mob-btn-group">
+      <a href="login.html" class="btn-login" id="mob-btn-login">Login</a>
+      <a href="signup.html" class="btn-signup" id="mob-btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <!-- SECTION 1: HERO -->
+  <section class="blog-hero anim-fade-up">
+    <div class="blog-hero-header">
+      <h1>Smarter business<br>starts here</h1>
+      <p>Our mission is to help leaders cut through complexity, embrace efficiency, and build organizations ready for the future.</p>
+    </div>
+
+    <div class="blog-hero-img">
+      <img src="images/Blog-1.webp" alt="Smarter business strategy chess pieces" />
+    </div>
+  </section>
+
+  <!-- SECTION 2: 6 FEATURED BLOG CARDS GRID -->
+  <section class="featured-blog-section">
+    <div class="featured-grid">
+
+      <!-- Card 1 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-1">
+        <div class="blog-card-img">
+          <img src="images/Blog-2.webp" alt="Business statistics report" />
+        </div>
+        <span class="blog-card-meta">Process Improvement</span>
+        <h3>5 Signs Your Business Processes Are Holding You Back</h3>
+        <p>Learn how to spot the hidden inefficiencies costing you time, money, and momentum and what to do about them.</p>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-2">
+        <div class="blog-card-img">
+          <img src="images/Blog-3.webp" alt="Team meeting presenting data" />
+        </div>
+        <span class="blog-card-meta">Process Improvement</span>
+        <h3>From Chaos to Clarity: Lean Methodology in Action</h3>
+        <p>A behind-the-scenes look at how Leanor helped a logistics firm reduce waste and increase speed - without hiring more staff.</p>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-1">
+        <div class="blog-card-img">
+          <img src="images/Blog-4.webp" alt="Financial charts and magnifying glass" />
+        </div>
+        <span class="blog-card-meta">Strategy &amp; Execution</span>
+        <h3>KPI Overload? Here's How to Track What Really Matters</h3>
+        <p>Too much data can cloud decision-making. Discover how to choose, define, and use KPIs that align with your business goals.</p>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-2">
+        <div class="blog-card-img">
+          <img src="images/Blog-5.webp" alt="Business Plan Checklist note" />
+        </div>
+        <span class="blog-card-meta">Strategy &amp; Execution</span>
+        <h3>Process Improvement vs. Process Redesign</h3>
+        <p>Understand when to fine-tune current workflows -and when it's time for a full operational reset.</p>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-1">
+        <div class="blog-card-img">
+          <img src="images/Blog-6.webp" alt="Team brainstorming with sticky notes" />
+        </div>
+        <span class="blog-card-meta">Strategy &amp; Execution</span>
+        <h3>Scaling Operations Across Locations: Lessons from the Field</h3>
+        <p>How to maintain consistency, visibility, and efficiency as your organization expands.</p>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="404.html" class="blog-card anim-fade-up anim-delay-2">
+        <div class="blog-card-img">
+          <img src="images/Blog-7.webp" alt="Executives in transition meeting" />
+        </div>
+        <span class="blog-card-meta">Process Improvement</span>
+        <h3>Change Management That Works: Guiding Teams Through Transition</h3>
+        <p>Effective change starts with people. Learn how to lead transitions with clarity, empathy, and lasting impact.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: LATEST ARTICLES -->
+  <section class="latest-articles-section">
+    <h2 class="section-title-center anim-fade-up">Latest Articles</h2>
+
+    <!-- Row 1: 3 Cards -->
+    <div class="latest-grid">
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-1">
+        <div class="latest-card-img">
+          <img src="images/Blog-8.webp" alt="Team reviewing machine learning blueprints" />
+        </div>
+        <span class="latest-tag">MACHINE LEARNING</span>
+        <h4>How AI Is Transforming Modern Businesses</h4>
+      </a>
+
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-2">
+        <div class="latest-card-img">
+          <img src="images/Blog-9.webp" alt="AI automation phone display" />
+        </div>
+        <span class="latest-tag">AI AUTOMATION</span>
+        <h4>How AI Is Streamlining Business Operations in 2026</h4>
+      </a>
+
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-3">
+        <div class="latest-card-img">
+          <img src="images/Blog-10.webp" alt="Team hands with data analytics notes" />
+        </div>
+        <span class="latest-tag">DATA ANALYTICS</span>
+        <h4>Turning Business Data into Smart Decisions with AI</h4>
+      </a>
+    </div>
+
+    <!-- Row 2: 3 Cards -->
+    <div class="latest-grid">
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-1">
+        <div class="latest-card-img">
+          <img src="images/Blog-11.webp" alt="Customer experience document and pen" />
+        </div>
+        <span class="latest-tag">CUSTOMER EXPERIENCE</span>
+        <h4>How AI Is Personalizing Customer Journeys at Scale</h4>
+      </a>
+
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-2">
+        <div class="latest-card-img">
+          <img src="images/Blog-12.webp" alt="Gold chess pieces strategic insight" />
+        </div>
+        <span class="latest-tag">AI STRATEGY</span>
+        <h4>Building a Smarter Business with AI-Driven Insights</h4>
+      </a>
+
+      <a href="404.html" class="latest-card anim-fade-up anim-delay-3">
+        <div class="latest-card-img">
+          <img src="images/Blog-13.webp" alt="Team presenting future technology charts" />
+        </div>
+        <span class="latest-tag">FUTURE TECHNOLOGY</span>
+        <h4>The Role of AI in Shaping the Future of Work</h4>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 4: EXPLORE OUR LATEST INSIGHTS -->
+  <section class="insights-section">
+    <div class="insights-header-row anim-fade-up">
+      <div class="insights-header-left">
+        <h2>Explore Our<br>Latest Insights</h2>
+      </div>
+      <div class="insights-header-right">
+        <p>Discover new insights and methods to elevate your business with our blogs.</p>
+      </div>
+    </div>
+
+    <div class="insights-mid-banner anim-fade-up">
+      <img src="images/Blog-14.webp" alt="Hands analyzing financial growth charts" />
+    </div>
+
+    <div class="insights-cards-grid">
+      
+      <!-- Card 1 -->
+      <div class="insight-card-item anim-fade-up anim-delay-1">
+        <div class="insight-card-photo">
+          <img src="images/Blog-15.webp" alt="Navigating change documents" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Management</span>
+        </div>
+        <h3>Navigating Change: Adaptive Solutions for Growth</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="insight-card-item anim-fade-up anim-delay-2">
+        <div class="insight-card-photo">
+          <img src="images/Blog-16.webp" alt="Maximizing efficiency white board presentation" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Finance</span>
+        </div>
+        <h3>Maximizing Efficiency: Strategies for Optimization</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="insight-card-item anim-fade-up anim-delay-1">
+        <div class="insight-card-photo">
+          <img src="images/Blog-17.webp" alt="Innovative strategies meeting" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Marketing</span>
+        </div>
+        <h3>Unlocking Success: Innovative Strategies for Businesses</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="insight-card-item anim-fade-up anim-delay-2">
+        <div class="insight-card-photo">
+          <img src="images/Blog-18.webp" alt="Strategic partnerships document and magnifying glass" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Finance</span>
+        </div>
+        <h3>Strategic Partnerships: Building Bridges for Growth</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="insight-card-item anim-fade-up anim-delay-1">
+        <div class="insight-card-photo">
+          <img src="images/Blog-19.webp" alt="Leadership insights report" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Marketing</span>
+        </div>
+        <h3>Leadership Insights: Guiding Businesses to Excellence</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="insight-card-item anim-fade-up anim-delay-2">
+        <div class="insight-card-photo">
+          <img src="images/Blog-20.webp" alt="Data driven decisions executive with newspaper" />
+        </div>
+        <div class="insight-meta-info">
+          <span>April 12, 2024</span>
+          <span class="category">Management</span>
+        </div>
+        <h3>Data-Driven Decisions: Leveraging Analytics for Success</h3>
+        <a href="404.html" class="btn-read-more">Read more</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: CTA BANNER -->
+  <section class="cta-banner-section anim-fade-up">
+    <div class="cta-banner-card">
+      <img src="images/Blog-21.webp" alt="Financial chart background" class="bg-img" />
+      <div class="overlay"></div>
+      <div class="cta-content">
+        <h2>Let's Architect<br>Your Intelligent</h2>
+        <a href="contact.html" class="btn-contact-cta">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-grid">
+
+      <div class="footer-col-brand">
+        <div class="footer-logo">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" />
+        </div>
+        <h3>Got Event in Mind?<br>Let's collaborate.</h3>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); const emailInput = this.querySelector('input[type=email]'); if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) { window.location.href = '404.html'; } else if (emailInput) { emailInput.reportValidity(); }">
+          <input type="email" placeholder="Enter your email" class="newsletter-input" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <p class="footer-brand-desc">Delivering expert business consulting solutions that drive growth, efficiency, and measurable results for companies worldwide.</p>
+      </div>
+
+      <div class="footer-col-contact">
+        <h4>Contact us</h4>
+        <div class="footer-contact-info">
+          <p>+1 (800) 555-1234</p>
+          <p>Evolve Studio, 4th Floor,<br>Khata No 10, Begur - Koppa Rd,<br>In front of SNN Raj Serenity,<br>Suraksha Nagar, Yelenahalli,<br>Begur, Bengaluru,<br>Karnataka -560068</p>
+          <p>info@stacklyhealth.com</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+
+      <div class="footer-col-links">
+        <h4>Links</h4>
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col-social">
+        <h4>Follow us</h4>
+        <div class="social-icons">
+          <a href="404.html" class="social-icon-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="X Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="404.html" class="social-icon-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STACKLY Watermark -->
+    <div class="footer-watermark">
+      <img src="images/fa2d55a2-c87a-4ebe-a1ba-81d49dcd09f5 2.webp" alt="STACKLY Watermark" />
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-toggle');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+
+    function closeMobileMenu() {
+      if (hamburgerBtn && hamburgerBtn.classList.contains('open')) {
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        if (mobileDropdown) {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      }
+    }
+
+    if (hamburgerBtn && mobileDropdown) {
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+          mobileDropdown.style.display = 'flex';
+          requestAnimationFrame(() => mobileDropdown.classList.add('active'));
+        } else {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => { mobileDropdown.style.display = 'none'; }, 350);
+        }
+      });
+
+      mobileDropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
+
+    const isMobile = window.innerWidth <= 768;
+    const observerOptions = {
+      threshold: isMobile ? 0 : 0.08,
+      rootMargin: isMobile ? '0px' : '0px 0px -20px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, 60);
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.anim-fade-up').forEach((el) => {
+      scrollObserver.observe(el);
+    });
+
+    if (isMobile) {
+      document.querySelectorAll('.anim-fade-up').forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('is-visible');
+        }
+      });
+    }
+  </script>
+
+  <!-- Super Cool Preloader Script -->
+  <script src="preloader.js"></script>
+</body>
+</html>
+

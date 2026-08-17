@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stackly – Strategic Marketing Ideas to Grow Your Brand</title>
+  <meta name="description" content="Stackly delivers creative marketing solutions designed to boost your business growth through content creation, social management, and strategic campaigns." />
+  
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Super Cool Preloader CSS -->
+  <link rel="stylesheet" href="preloader.css" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE STYLES
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111111;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+      -webkit-animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+              animation: navSlideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @-webkit-keyframes navSlideDown {
+      from { -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); opacity: 0; }
+      to   { -webkit-transform: translate3d(0, 0, 0);     transform: translate3d(0, 0, 0);     opacity: 1; }
+    }
+    @keyframes navSlideDown {
+      from { -webkit-transform: translate3d(0, -100%, 0); transform: translate3d(0, -100%, 0); opacity: 0; }
+      to   { -webkit-transform: translate3d(0, 0, 0);     transform: translate3d(0, 0, 0);     opacity: 1; }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #222;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: #000; font-weight: 600; }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-login {
+      padding: 8px 24px;
+      font-size: 13.5px;
+      font-weight: 500;
+      border: 1.5px solid #111111;
+      border-radius: 50px;
+      background: transparent;
+      color: #111111;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-login:hover {
+      background: #111111;
+      color: #ffffff;
+    }
+    .btn-signup {
+      padding: 8px 24px;
+      font-size: 13.5px;
+      font-weight: 500;
+      border: 1.5px solid #111111;
+      border-radius: 50px;
+      background: #111111;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-signup:hover {
+      background: #2a2a2a;
+      border-color: #2a2a2a;
+    }
+
+    /* Hamburger Menu Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      width: 100%;
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 20px 24px 32px;
+      flex-direction: column;
+      gap: 0;
+      z-index: 9999;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      transform: translateY(-15px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      box-sizing: border-box;
+    }
+    .mobile-menu.active {
+      display: flex;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .mobile-menu > a {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111111;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      box-sizing: border-box;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+    .mobile-menu > a:hover,
+    .mobile-menu > a.active {
+      color: #000000;
+      font-weight: 600;
+      padding-left: 4px;
+    }
+    .mobile-menu > a:last-of-type {
+      border-bottom: none;
+    }
+    .mobile-menu .mob-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mobile-menu .btn-login,
+    .mobile-menu .btn-signup {
+      flex: 1;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 50px;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: 1.5px solid #111111 !important;
+    }
+    .mobile-menu .btn-login {
+      background: transparent;
+      color: #111111 !important;
+    }
+    .mobile-menu .btn-login:hover {
+      background: #111111;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup {
+      background: #111111 !important;
+      color: #ffffff !important;
+    }
+    .mobile-menu .btn-signup:hover {
+      background: #2a2a2a !important;
+      border-color: #2a2a2a !important;
+      color: #ffffff !important;
+    }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero-container {
+      position: relative;
+      margin-top: 68px;
+      width: 100%;
+      min-height: calc(100vh - 68px);
+      max-height: 820px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 24px 60px;
+      overflow: hidden;
+      background-color: #e4f0f6;
+    }
+
+    .hero-bg-layer {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .hero-bg-layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      transform: scale(1.03);
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: min(1600px, 94vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin: auto 0;
+    }
+
+    .hero-cards-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .card-item {
+      position: relative;
+      width: 220px;
+      height: 150px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px) scale(0.92);
+      animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .card-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.6s ease;
+    }
+
+    #card-1 img { object-position: center 8%; }
+    #card-2 img { object-position: center 4%; }
+    #card-3 img { object-position: center 8%; }
+    #card-4 img { object-position: center 4%; }
+
+    .card-item:hover {
+      transform: translateY(-12px) scale(1.05) !important;
+      box-shadow: 0 28px 50px rgba(0, 0, 0, 0.22), 0 8px 20px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+    .card-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .card-item:nth-child(1) { animation-delay: 0.15s; }
+    .card-item:nth-child(2) { animation-delay: 0.30s; }
+    .card-item:nth-child(3) { animation-delay: 0.45s; }
+    .card-item:nth-child(4) { animation-delay: 0.60s; }
+
+    @keyframes cardAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card-item.floating-1 { animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards, floatBob1 4.5s ease-in-out 1s infinite alternate; }
+    .card-item.floating-2 { animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.30s forwards, floatBob2 5.0s ease-in-out 1.2s infinite alternate; }
+    .card-item.floating-3 { animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards, floatBob1 4.2s ease-in-out 1.4s infinite alternate; }
+    .card-item.floating-4 { animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.60s forwards, floatBob2 4.8s ease-in-out 1.6s infinite alternate; }
+
+    @keyframes floatBob1 {
+      0%   { transform: translateY(0px); }
+      100% { transform: translateY(-8px); }
+    }
+    @keyframes floatBob2 {
+      0%   { transform: translateY(-6px); }
+      100% { transform: translateY(4px); }
+    }
+
+    .hero-center-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 22px;
+      max-width: 720px;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(32px, 4.2vw, 54px);
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.18;
+      letter-spacing: -0.8px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroTextFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    @keyframes heroTextFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #000000;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroTextFade 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    }
+    .hero-cta-btn:hover {
+      background: #222222;
+      transform: translateY(-3px) scale(1.03) !important;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+    }
+    .hero-cta-btn:active {
+      transform: translateY(0) scale(0.98) !important;
+    }
+
+    /* ============================================================
+       FEATURES SECTION
+    ============================================================ */
+    .features-section {
+      padding: 50px 24px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .services-col {
+      display: flex;
+      flex-direction: column;
+      gap: 52px;
+    }
+
+    .service-card {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .service-card.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .service-card:nth-child(2) { transition-delay: 0.15s; }
+
+    .service-icon-wrap {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 16px;
+    }
+    .service-icon-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .service-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .service-desc {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #555555;
+    }
+
+    .center-img-col {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease 0.1s, transform 0.85s ease 0.1s;
+    }
+    .center-img-col.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .center-img-frame {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 3px solid #111111;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.14);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .center-img-frame img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+    .center-img-frame:hover {
+      transform: scale(1.02);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+    }
+
+    .headline-col {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.75s ease 0.2s, transform 0.75s ease 0.2s;
+    }
+    .headline-col.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .headline-col h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.6vw, 36px);
+      font-weight: 700;
+      line-height: 1.24;
+      color: #111111;
+      letter-spacing: -0.6px;
+    }
+
+    /* ============================================================
+       DRIVING GROWTH & DUAL OVERLAPPING SHOWCASE
+    ============================================================ */
+    .growth-section {
+      padding: 40px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .growth-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .growth-header-row.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .growth-header-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.2;
+      letter-spacing: -0.6px;
+      max-width: 440px;
+    }
+
+    .growth-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      max-width: 480px;
+    }
+
+    .growth-header-right p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 500;
+      color: #222222;
+      line-height: 1.35;
+    }
+
+    .btn-explore {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 28px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #000000;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-explore:hover {
+      background: #2b2b2b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .dual-showcase-container {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .showcase-back-card {
+      position: relative;
+      width: 62%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+      z-index: 1;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .showcase-back-card.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .showcase-back-card img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .showcase-back-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .showcase-front-card {
+      position: absolute;
+      right: 4%;
+      top: 40px;
+      width: 44%;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      background: #ffffff;
+      opacity: 0;
+      transform: translateX(40px) translateY(20px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    }
+    .showcase-front-card.is-visible {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+    .showcase-front-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .showcase-front-card:hover {
+      transform: translateY(-8px) scale(1.02) !important;
+      box-shadow: 0 36px 75px rgba(0, 0, 0, 0.26);
+    }
+    .showcase-front-card:hover img {
+      transform: scale(1.04);
+    }
+
+    /* ============================================================
+       TRUST / CLIENT REVIEWS BANNER
+    ============================================================ */
+    .trust-banner-section {
+      padding: 40px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .trust-banner-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .trust-quote-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(22px, 2.6vw, 36px);
+      font-weight: 600;
+      line-height: 1.35;
+      color: #111111;
+      letter-spacing: -0.4px;
+      max-width: 820px;
+    }
+
+    .avatar-stack-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-item {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      overflow: hidden;
+      margin-left: -14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transition: transform 0.3s ease, z-index 0.3s ease;
+    }
+    .avatar-item:first-child {
+      margin-left: 0;
+    }
+    .avatar-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .avatar-item:hover {
+      transform: translateY(-4px) scale(1.15);
+      z-index: 10;
+    }
+
+    .trust-rating-subtext {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #444444;
+      letter-spacing: -0.1px;
+    }
+
+    /* ============================================================
+       CAMPAIGN CARDS GRID
+    ============================================================ */
+    .campaign-section {
+      padding: 30px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .campaign-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      background: #f8f9fa;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .campaign-card.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .campaign-card:nth-child(2) { transition-delay: 0.18s; }
+
+    .campaign-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 440px;
+      object-fit: cover;
+      object-position: left bottom;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .campaign-card:hover {
+      box-shadow: 0 32px 70px rgba(0, 0, 0, 0.18);
+      transform: translateY(-8px) !important;
+    }
+    .campaign-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .card-text-overlay {
+      position: absolute;
+      bottom: 32px;
+      left: 36px;
+      right: 36px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .card-subtitle {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: #111111;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.18;
+      letter-spacing: -0.5px;
+    }
+
+    /* ============================================================
+       SMART MARKETING SOLUTIONS (HANDSHAKE)
+    ============================================================ */
+    .smart-solutions-section {
+      padding: 30px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .smart-solutions-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .smart-solutions-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .smart-content-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: #111111;
+      letter-spacing: -0.6px;
+      margin-bottom: 20px;
+    }
+
+    .smart-content-left p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: #444444;
+    }
+
+    .smart-image-right {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    }
+    .smart-image-right img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .smart-image-right:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ============================================================
+       SERVICE PILL ACCORDION LIST
+    ============================================================ */
+    .accordion-section {
+      padding: 30px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .accordion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 56px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .accordion-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .accordion-img-left {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    }
+    .accordion-img-left img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .accordion-img-left:hover img {
+      transform: scale(1.03);
+    }
+
+    .accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .accordion-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px;
+      border: 1.5px solid #e2e4e8;
+      border-radius: 50px;
+      background: #ffffff;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .accordion-item:hover {
+      border-color: #111111;
+      background: #fafafa;
+      transform: translateX(6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .accordion-item-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .accordion-num {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333333;
+      min-width: 24px;
+    }
+
+    .accordion-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #111111;
+      letter-spacing: -0.2px;
+    }
+
+    .accordion-arrow {
+      font-size: 18px;
+      color: #111111;
+      transition: transform 0.3s ease;
+    }
+    .accordion-item:hover .accordion-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ============================================================
+       FLOATING IMAGE GRID + JOIN US CTA BANNER
+    ============================================================ */
+    .join-cta-section {
+      padding: 40px 24px 60px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .join-cta-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 24px;
+      min-height: 520px;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .join-cta-container.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .float-card {
+      position: absolute;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.14), 0 4px 14px rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+    .float-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+      transition: transform 0.6s ease;
+    }
+    .float-card:hover {
+      transform: scale(1.06) translateY(-8px) !important;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
+      z-index: 20;
+    }
+    .float-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .fc-top-left {
+      top: -10px; left: 0%;
+      width: 250px; height: 175px;
+      animation: floatBob1 4.5s ease-in-out infinite alternate;
+    }
+    .fc-top-right {
+      top: -10px; right: 0%;
+      width: 250px; height: 175px;
+      animation: floatBob2 4.8s ease-in-out infinite alternate;
+    }
+    .fc-bottom-left {
+      bottom: -10px; left: 4%;
+      width: 240px; height: 165px;
+      animation: floatBob2 4.2s ease-in-out infinite alternate;
+    }
+    .fc-bottom-right {
+      bottom: -10px; right: 4%;
+      width: 240px; height: 165px;
+      animation: floatBob1 4.6s ease-in-out infinite alternate;
+    }
+
+    .join-center-content {
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .join-avatars {
+      display: flex;
+      margin-bottom: 4px;
+    }
+    .join-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      margin-left: -12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .join-avatar:first-child { margin-left: 0; }
+    .join-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .join-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3.2vw, 44px);
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.18;
+      letter-spacing: -0.6px;
+    }
+
+    .join-subtext {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #555555;
+      max-width: 520px;
+    }
+
+    .btn-start-journey {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 38px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #000000;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .btn-start-journey:hover {
+      background: #2b2b2b;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ============================================================
+       NEW SECTION 11: TRACK RECORD & CUSTOMIZED SOLUTIONS GRID
+    ============================================================ */
+    .track-record-section {
+      padding: 40px 24px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .track-record-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .track-record-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .track-left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+    }
+
+    .track-top-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .track-card {
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1.5px solid #eaeaea;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .track-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Testimonial quote block inside Card 1 */
+    .track-quote-block {
+      background: #f8f8f8;
+      border-left: 3px solid #111;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 2px;
+    }
+    .track-quote-text {
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: #333;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .track-quote-author {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 0.3px;
+    }
+
+    /* Star rating block inside Card 2 */
+    .track-rating-block {
+      background: #f8f8f8;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .track-stars {
+      display: flex;
+      gap: 3px;
+    }
+    .track-stars svg {
+      width: 16px;
+      height: 16px;
+      fill: #f5a623;
+    }
+    .track-rating-text {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .track-rating-score {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+
+    .track-card-img {
+      border-radius: 14px;
+      overflow: hidden;
+      height: 125px;
+      margin-bottom: 12px;
+    }
+    .track-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .track-card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.25;
+    }
+
+    .track-card-desc {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #222222;
+      margin-top: 6px;
+    }
+
+    .track-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: #111111;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+      margin-top: auto;
+      display: inline-block;
+    }
+    .track-link:hover { color: #555555; }
+
+    .track-stat-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 46px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1;
+      display: block;
+    }
+
+    /* Mini stats row inside Card 1 */
+    .track-mini-stats {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #f5f5f5;
+      border-radius: 14px;
+      padding: 14px 10px;
+      margin-top: 4px;
+    }
+    .track-mini-stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .track-mini-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+    }
+    .track-mini-label {
+      font-size: 11px;
+      color: #666;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .track-mini-divider {
+      width: 1px;
+      height: 32px;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+
+    /* Client badge pills in Card 2 */
+    .track-client-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .track-pill {
+      display: inline-block;
+      background: #f5f5f5;
+      border: 1px solid #e5e5e5;
+      border-radius: 50px;
+      padding: 7px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #222;
+    }
+
+
+    .customized-card {
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1.5px solid #eaeaea;
+      padding: 24px 24px;
+      display: grid;
+      grid-template-columns: 1fr 165px;
+      gap: 20px;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .customized-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    .customized-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+      height: 100%;
+    }
+    .customized-subtext {
+      font-size: 14.5px;
+      line-height: 1.45;
+      color: #222222;
+    }
+    .customized-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.2;
+    }
+
+    .customized-img {
+      border-radius: 16px;
+      overflow: hidden;
+      height: 140px;
+      width: 100%;
+    }
+    .customized-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Right column portrait card — height matches left column */
+    .track-right-col {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      height: 100%;
+      min-height: 100%;
+      display: flex;
+    }
+    .track-right-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .track-right-col:hover img {
+      transform: scale(1.02);
+    }
+
+    /* ============================================================
+       NEW SECTION 12: SUSTAINABILITY CONSULTING & ARCH BADGE
+    ============================================================ */
+    .sustainability-section {
+      padding: 40px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .sustainability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .sustainability-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sustain-left {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .sustain-left h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: #111111;
+      letter-spacing: -0.6px;
+    }
+
+    .sustain-accordion-box {
+      background: #ffffff;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 18px;
+      padding: 24px 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .sustain-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #111111;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .sustain-accordion-body {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #555555;
+    }
+
+    /* Arch pill images & 25+ experience badge composition */
+    .arch-badge-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .arch-card {
+      width: 220px;
+      height: 340px;
+      border-radius: 120px 120px 120px 120px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12);
+      transition: transform 0.4s ease;
+    }
+    .arch-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 3%;
+    }
+    .arch-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .years-badge {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      z-index: 10;
+      border: 4px solid #ffffff;
+    }
+
+    .years-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1;
+    }
+
+    .years-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #444444;
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+
+    /* ============================================================
+       NEW SECTION 13: DARK FOOTER WITH WATERMARK
+    ============================================================ */
+    .site-footer {
+      background: #000000;
+      color: #ffffff;
+      padding: 50px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 0.7fr 0.9fr;
+      gap: 48px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Col 1: Logo & Newsletter */
+    .footer-col-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+      filter: invert(1);
+    }
+    .footer-col-brand h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #ffffff;
+    }
+
+    .newsletter-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .newsletter-input {
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 1.5px solid #444444;
+      background: transparent;
+      color: #ffffff;
+      font-size: 13.5px;
+      outline: none;
+      width: 100%;
+      max-width: 200px;
+      transition: border-color 0.25s ease;
+    }
+    .newsletter-input:focus {
+      border-color: #ffffff;
+    }
+    .newsletter-btn {
+      padding: 10px 22px;
+      border-radius: 50px;
+      border: none;
+      background: #ffffff;
+      color: #000000;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.25s ease;
+    }
+    .newsletter-btn:hover {
+      background: #dddddd;
+    }
+
+    .footer-brand-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #aaaaaa;
+      max-width: 320px;
+    }
+
+    /* Col 2: Contact */
+    .footer-col-contact h4,
+    .footer-col-links h4,
+    .footer-col-social h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .footer-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cccccc;
+    }
+
+    /* Col 3: Links */
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-nav-list a {
+      font-size: 14px;
+      color: #cccccc;
+      transition: color 0.2s ease;
+    }
+    .footer-nav-list a:hover {
+      color: #ffffff;
+    }
+
+    /* Col 4: Social Icons */
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .social-icon-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1.5px solid #444444;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: all 0.25s ease;
+    }
+    .social-icon-link:hover {
+      background: #333333;
+      border-color: #666666;
+      transform: translateY(-2px);
+    }
+    .social-icon-link svg {
+      width: 18px; height: 18px;
+      fill: currentColor;
+    }
+
+    /* Giant STACKLY Watermark at Bottom */
+    .footer-watermark {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      user-select: none;
+      pointer-events: none;
+      transform: translateY(30%);
+    }
+    .footer-watermark img {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      filter: brightness(2.5) contrast(0.5);
+      mix-blend-mode: screen;
+      opacity: 0.85;
+    }
+
+    /* ============================================================
+       VALUE PROPOSITION & STOCK CHART
+    ============================================================ */
+    .valprop-section {
+      padding: 40px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .valprop-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .valprop-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .valprop-text-left h2 {
+      font-size: clamp(22px, 2.4vw, 34px);
+      font-weight: 700;
+      line-height: 1.32;
+      color: #111111;
+      letter-spacing: -0.5px;
+    }
+
+    .valprop-img-right {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+    }
+    .valprop-img-right img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .valprop-img-right:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ============================================================
+       STATS COUNTERS
+    ============================================================ */
+    .stats-section {
+      padding: 30px 24px 50px;
+      max-width: min(1600px, 94vw);
+      margin: 0 auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .stats-grid.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-number {
+      font-size: clamp(42px, 4.5vw, 64px);
+      font-weight: 700;
+      color: #111111;
+      line-height: 1;
+      letter-spacing: -1.5px;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111111;
+      letter-spacing: -0.2px;
+    }
+
+    .stat-desc {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #555555;
+    }
+
+    /* ============================================================
+       CLOSING STATEMENT BANNER
+    ============================================================ */
+    .closing-banner-section {
+      padding: 30px 24px 50px;
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .closing-banner-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .closing-statement-text {
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 600;
+      line-height: 1.5;
+      color: #222222;
+      letter-spacing: -0.3px;
+    }
+
+    /* ============================================================
+       RESPONSIVE BREAKPOINTS
+    ============================================================ */
+    @media (max-width: 1200px) {
+      .fc-top-left { width: 210px; height: 145px; }
+      .fc-top-right { width: 210px; height: 145px; }
+      .fc-bottom-left { width: 200px; height: 140px; }
+      .fc-bottom-right { width: 200px; height: 140px; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-cards-row { gap: 16px; }
+      .card-item { width: 180px; height: 125px; border-radius: 16px; }
+      
+      .dual-showcase-container { min-height: 520px; }
+      .showcase-back-card img { height: 350px; }
+      .showcase-front-card img { height: auto; }
+
+      .float-card { display: none; }
+      .track-record-grid { grid-template-columns: 1fr; gap: 24px; }
+      .track-right-col { min-height: 480px; height: 520px; }
+      .sustainability-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 10000 !important;
+        padding: 0 24px;
+        /* Force GPU layer so iOS Safari keeps it fixed */
+        -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+      }
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: flex; }
+
+      /* Reveal animations switch to vertical-only on mobile — sideways slide-ins
+         were the main cause of the horizontal overflow/scroll-jitter on small screens */
+      .service-card, .headline-col, .showcase-back-card, .showcase-front-card {
+        transform: translateY(24px);
+      }
+
+      .hero-container { min-height: auto; padding: 40px 16px 50px; }
+      .hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 440px; }
+      .card-item { width: 100%; height: 130px; }
+
+      .features-section { padding: 60px 24px; }
+      .features-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .headline-col { grid-column: 1 / -1; text-align: center; }
+
+      .growth-section { padding: 60px 24px; }
+      .growth-header-row { flex-direction: column; gap: 20px; }
+      .growth-header-left h2 { max-width: 100%; }
+
+      .dual-showcase-container { flex-direction: column; min-height: auto; gap: 20px; }
+      .showcase-back-card { width: 100%; }
+      .showcase-back-card img { height: 280px; }
+      .showcase-front-card { position: relative; right: auto; top: auto; width: 90%; margin-top: -60px; margin-left: auto; }
+      .showcase-front-card img { height: auto; }
+
+      .campaign-section { padding: 40px 24px 60px; }
+      .campaign-grid { grid-template-columns: 1fr; gap: 24px; }
+      .campaign-card img { min-height: 340px; }
+
+      .smart-solutions-section { padding: 50px 24px; }
+      .smart-solutions-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .accordion-section { padding: 50px 24px; }
+      .accordion-grid { grid-template-columns: 1fr; gap: 36px; }
+
+      .join-cta-section { padding: 60px 24px; }
+
+      .valprop-section { padding: 60px 24px; }
+      .valprop-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .stats-section { padding: 40px 24px 60px; }
+      .stats-grid { grid-template-columns: 1fr; gap: 36px; }
+
+      .track-record-section { padding: 50px 24px; }
+      .customized-card { grid-template-columns: 1fr; }
+      .sustainability-section { padding: 50px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-cards-row { gap: 10px; max-width: 340px; }
+      .card-item { height: 105px; border-radius: 14px; }
+      .hero-headline { font-size: 26px; }
+      .hero-cta-btn { padding: 12px 28px; font-size: 14px; }
+
+      .features-section { padding: 48px 16px; }
+      .features-grid { grid-template-columns: 1fr; gap: 36px; }
+      .headline-col { grid-column: 1; grid-row: 1; text-align: left; }
+      .center-img-frame img { height: 300px; }
+
+      .growth-section { padding: 48px 16px; }
+      .showcase-front-card { margin-top: -40px; width: 95%; }
+      .showcase-back-card img { height: 240px; }
+      .showcase-front-card img { height: auto; }
+
+      .trust-banner-section { padding: 60px 16px; gap: 18px; }
+      .trust-quote-text { font-size: 20px; }
+
+      .campaign-section { padding: 20px 16px 40px; }
+      .campaign-card img { min-height: 280px; }
+      .card-subtitle { font-size: 11px; }
+      .card-title { font-size: 22px; }
+
+      .smart-solutions-section { padding: 40px 16px; }
+      .smart-image-right img { height: 260px; }
+
+      .accordion-section { padding: 40px 16px; }
+      .accordion-img-left img { height: 280px; }
+      .accordion-item { padding: 14px 20px; }
+      .accordion-title { font-size: 15px; }
+
+      .join-cta-section { padding: 40px 16px; }
+      .btn-start-journey { padding: 12px 28px; font-size: 14px; }
+
+      .valprop-section { padding: 40px 16px; }
+      .valprop-img-right img { height: 200px; }
+
+      .stats-section { padding: 30px 16px 50px; }
+      .stat-number { font-size: 38px; }
+
+      .closing-banner-section { padding: 40px 16px 80px; }
+      .closing-statement-text { font-size: 17px; }
+
+      .track-top-row { grid-template-columns: 1fr; }
+      .track-right-col { min-height: 380px; height: 420px; }
+      .arch-badge-wrapper { flex-direction: column; height: auto; align-items: center; gap: 0; margin-top: 20px; }
+      .arch-card { width: min(280px, 86vw); height: 380px; border-radius: 140px; }
+      .arch-card img { object-position: center 2%; }
+      .years-badge { position: relative; width: 124px; height: 124px; margin: -50px auto -35px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============================================================
+       SITE PRELOADER
+  ============================================================ -->
+  <div id="site-preloader" class="site-preloader" aria-hidden="true">
+    <div class="preloader-ambient-glow"></div>
+    <div class="preloader-content-box">
+      <div class="preloader-brand-wrapper">
+        <div class="preloader-pulse-shadow"></div>
+        <div class="preloader-spin-ring-outer"></div>
+        <div class="preloader-spin-ring-inner"></div>
+        <div class="preloader-logo-core">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" class="preloader-logo-img" />
+        </div>
+      </div>
+      <div class="preloader-meta-wrap">
+        <span class="preloader-brand-title">Stackly</span>
+        <span class="preloader-brand-tagline">Strategic Growth &amp; Advisory</span>
+      </div>
+      <div class="preloader-progress-wrap">
+        <div class="preloader-progress-track">
+          <div class="preloader-progress-fill" id="preloader-progress-fill"></div>
+        </div>
+        <div class="preloader-percent-num" id="preloader-percent">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-logo" aria-label="Stackly Home">
+      <img src="images/Frame 808.webp" alt="Stackly Logo" />
+    </a>
+
+    <nav aria-label="Desktop Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active" id="link-home">Home</a></li>
+        <li><a href="about.html" id="link-about">About</a></li>
+        <li><a href="service.html" id="link-service">Service</a></li>
+        <li><a href="blog.html" id="link-blog">Blog</a></li>
+        <li><a href="contact.html" id="link-contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="login.html" class="btn-login" id="btn-login-header">Login</a>
+      <a href="signup.html" class="btn-signup" id="btn-signup-header">Signup</a>
+    </div>
+
+    <button class="hamburger" id="hamburger-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  <div class="mobile-menu" id="mobile-dropdown" role="navigation" aria-label="Mobile Navigation">
+    <a href="index.html" id="mob-link-home">Home</a>
+    <a href="about.html" id="mob-link-about">About</a>
+    <a href="service.html" id="mob-link-service">Service</a>
+    <a href="blog.html" id="mob-link-blog">Blog</a>
+    <a href="contact.html" id="mob-link-contact">Contact</a>
+    <div class="mob-btn-group">
+      <a href="login.html" class="btn-login" id="mob-btn-login">Login</a>
+      <a href="signup.html" class="btn-signup" id="mob-btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section class="hero-container" id="hero">
+    
+    <div class="hero-bg-layer">
+      <img src="images/hero-bg.webp" alt="Skyscraper background backdrop" />
+      <div class="hero-bg-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+
+      <!-- 4 Floating Animated Cards Row -->
+      <div class="hero-cards-row">
+        <div class="card-item floating-1" id="card-1">
+          <img src="images/Rectangle 135.webp" alt="Marketing Strategy Presentation" />
+        </div>
+        <div class="card-item floating-2" id="card-2">
+          <img src="images/Rectangle 136.webp" alt="Business Data & Charts Analysis" />
+        </div>
+        <div class="card-item floating-3" id="card-3">
+          <img src="images/Rectangle 137.webp" alt="Corporate Strategy Meeting" />
+        </div>
+        <div class="card-item floating-4" id="card-4">
+          <img src="images/Rectangle 138.webp" alt="Team Collaboration & Workshop" />
+        </div>
+      </div>
+
+      <!-- Center Text & CTA Button -->
+      <div class="hero-center-block">
+        <h1 class="hero-headline">Strategic marketing ideas to<br>grow your brand</h1>
+        <a href="404.html"><button class="hero-cta-btn" id="hero-start-btn">Start project</button></a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 1: SERVICES & TEAM
+  ============================================================ -->
+  <section class="features-section" id="features">
+    <div class="features-grid">
+
+      <!-- Left Services Column -->
+      <div class="services-col">
+        <div class="service-card" id="svc-content-creation">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="9" cy="11" r="2.5" fill="#111111"/>
+              <line x1="15" y1="11" x2="36" y2="11" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="9" cy="21" r="2.5" fill="#111111"/>
+              <line x1="15" y1="21" x2="36" y2="21" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="9" cy="31" r="2.5" fill="#111111"/>
+              <line x1="15" y1="31" x2="28" y2="31" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Content creation</h3>
+          <p class="service-desc">Crafting compelling visual stories that resonate with your core brand.</p>
+        </div>
+
+        <div class="service-card" id="svc-social-management">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="21" cy="9"  r="4.5" stroke="#111111" stroke-width="2.4" fill="none"/>
+              <circle cx="8"  cy="33" r="4.5" stroke="#111111" stroke-width="2.4" fill="none"/>
+              <circle cx="34" cy="33" r="4.5" stroke="#111111" stroke-width="2.4" fill="none"/>
+              <line x1="21" y1="13.5" x2="10" y2="28.5" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+              <line x1="21" y1="13.5" x2="32" y2="28.5" stroke="#111111" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Social management</h3>
+          <p class="service-desc">Engaging your community through strategic and consistent interaction.</p>
+        </div>
+      </div>
+
+      <!-- Center Vertical Image Column -->
+      <div class="center-img-col" id="center-img-col">
+        <div class="center-img-frame">
+          <img src="images/Rectangle 117.webp" alt="Creative marketing solutions team" id="center-feature-img" />
+        </div>
+      </div>
+
+      <!-- Right Headline Column -->
+      <div class="headline-col" id="headline-col">
+        <h2>Creative marketing solutions designed to boost your business growth</h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 2: DRIVING GROWTH FOR YOUR BUSINESS
+  ============================================================ -->
+  <section class="growth-section" id="growth">
+    
+    <div class="growth-header-row" id="growth-header">
+      <div class="growth-header-left">
+        <h2>Driving Growth for Your Business</h2>
+      </div>
+      <div class="growth-header-right">
+        <p>Expert consulting drives corporate growth with creative strategy and solutions.</p>
+        <a href="404.html"><button class="btn-explore" id="btn-explore-growth">Explore now</button></a>
+      </div>
+    </div>
+
+    <div class="dual-showcase-container">
+      <div class="showcase-back-card" id="showcase-back">
+        <img src="images/Rectangle 118.webp" alt="Team high-five business strategy collaboration" />
+      </div>
+
+      <div class="showcase-front-card" id="showcase-front">
+        <img src="images/Rectangle 119.webp" alt="Corporate executive growth consulting" />
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 3: TRUST / CLIENT QUOTE BANNER
+  ============================================================ -->
+  <section class="trust-banner-section" id="trust-banner">
+    
+    <h3 class="trust-quote-text">
+      We craft data-driven marketing strategies that boost brand visibility, attract ideal customers, and deliver measurable business growth
+    </h3>
+
+    <div class="avatar-stack-wrapper">
+      <div class="avatar-stack">
+        <div class="avatar-item"><img src="images/Ellipse 10.webp" alt="Client Avatar 1" /></div>
+        <div class="avatar-item"><img src="images/Ellipse 11.webp" alt="Client Avatar 2" /></div>
+        <div class="avatar-item"><img src="images/Ellipse 12.webp" alt="Client Avatar 3" /></div>
+        <div class="avatar-item"><img src="images/Ellipse 13.webp" alt="Client Avatar 4" /></div>
+      </div>
+      <p class="trust-rating-subtext">Trusted by 500+ clients (4.9/5)</p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 4: CAMPAIGN & OPTIMIZATION CARDS
+  ============================================================ -->
+  <section class="campaign-section" id="campaigns">
+    <div class="campaign-grid">
+      
+      <!-- Card 1: Conversion Optimization -->
+      <div class="campaign-card" id="campaign-card-1">
+        <img src="images/Frame 1892.webp" alt="Digital Excellence - Conversion optimization" />
+        <div class="card-text-overlay">
+          <span class="card-subtitle">DIGITAL EXCELLENCE</span>
+          <h3 class="card-title">Conversion optimization</h3>
+        </div>
+      </div>
+
+      <!-- Card 2: Campaign Management -->
+      <div class="campaign-card" id="campaign-card-2">
+        <img src="images/Frame 1893.webp" alt="Strategic Campaigns - Campaign management" />
+        <div class="card-text-overlay">
+          <span class="card-subtitle">STRATEGIC CAMPAIGNS</span>
+          <h3 class="card-title">Campaign management</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 5: SMART MARKETING SOLUTIONS (HANDSHAKE)
+  ============================================================ -->
+  <section class="smart-solutions-section" id="smart-solutions">
+    <div class="smart-solutions-grid" id="smart-grid">
+      
+      <div class="smart-content-left">
+        <h2>Smart marketing solutions to scale your brand effectively</h2>
+        <p>Smart marketing is the art of leveraging data-driven insights and cutting-edge technology to connect with your target audience in a deeply meaningful way today.</p>
+      </div>
+
+      <div class="smart-image-right">
+        <img src="images/Rectangle 121.webp" alt="Corporate handshake smart marketing deal" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 6: SERVICE PILL ACCORDION LIST
+  ============================================================ -->
+  <section class="accordion-section" id="service-list">
+    <div class="accordion-grid" id="accordion-grid">
+      
+      <div class="accordion-img-left">
+        <img src="images/Rectangle 122.webp" alt="Strategy chart board session" />
+      </div>
+
+      <div class="accordion-list">
+        
+        <a href="404.html" class="accordion-item" id="acc-1">
+          <div class="accordion-item-left">
+            <span class="accordion-num">01</span>
+            <span class="accordion-title">Digital growth experts</span>
+          </div>
+          <span class="accordion-arrow">&rarr;</span>
+        </a>
+
+        <a href="404.html" class="accordion-item" id="acc-2">
+          <div class="accordion-item-left">
+            <span class="accordion-num">02</span>
+            <span class="accordion-title">High-impact creative campaigns</span>
+          </div>
+          <span class="accordion-arrow">&rarr;</span>
+        </a>
+
+        <a href="404.html" class="accordion-item" id="acc-3">
+          <div class="accordion-item-left">
+            <span class="accordion-num">03</span>
+            <span class="accordion-title">Lead generation campaigns</span>
+          </div>
+          <span class="accordion-arrow">&rarr;</span>
+        </a>
+
+        <a href="404.html" class="accordion-item" id="acc-4">
+          <div class="accordion-item-left">
+            <span class="accordion-num">04</span>
+            <span class="accordion-title">Performance marketing services</span>
+          </div>
+          <span class="accordion-arrow">&rarr;</span>
+        </a>
+
+        <a href="404.html" class="accordion-item" id="acc-5">
+          <div class="accordion-item-left">
+            <span class="accordion-num">05</span>
+            <span class="accordion-title">Unlock brand potential</span>
+          </div>
+          <span class="accordion-arrow">&rarr;</span>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 7: FLOATING IMAGE GRID + JOIN US CTA BANNER
+  ============================================================ -->
+  <section class="join-cta-section" id="join-cta">
+    
+    <div class="join-cta-container" id="join-container">
+      
+      <!-- Larger Surround Floating Images -->
+      <div class="float-card fc-top-left">
+        <img src="images/Rectangle 123.webp" alt="Executive discussion" />
+      </div>
+      <div class="float-card fc-top-right">
+        <img src="images/Rectangle 124.webp" alt="Strategy process diagram" />
+      </div>
+      <div class="float-card fc-bottom-left">
+        <img src="images/Rectangle 125.webp" alt="Marketing reports data" />
+      </div>
+      <div class="float-card fc-bottom-right">
+        <img src="images/Rectangle 126.webp" alt="Team reviewing charts" />
+      </div>
+
+      <!-- Center CTA Block -->
+      <div class="join-center-content">
+        
+        <div class="join-avatars">
+          <div class="join-avatar"><img src="images/Ellipse 10.webp" alt="User 1" /></div>
+          <div class="join-avatar"><img src="images/Ellipse 11.webp" alt="User 2" /></div>
+          <div class="join-avatar"><img src="images/Ellipse 12.webp" alt="User 3" /></div>
+          <div class="join-avatar"><img src="images/Ellipse 13.webp" alt="User 4" /></div>
+        </div>
+
+        <h2 class="join-title">Join us to unlock business growth streamline strategy and achieve measurable results</h2>
+        <p class="join-subtext">Join us to unlock business growth, streamline strategy, and achieve measurable results that drive long-term success and impact.</p>
+        
+        <a href="404.html">
+          <button class="btn-start-journey" id="btn-journey">Start your journey</button>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 8: VALUE PROPOSITION & STOCK CHART
+  ============================================================ -->
+  <section class="valprop-section" id="valprop">
+    <div class="valprop-grid" id="valprop-grid">
+      
+      <div class="valprop-text-left">
+        <h2>We help businesses grow through strategic marketing, creative design, and data-driven solutions tailored to every brand's unique goals</h2>
+      </div>
+
+      <div class="valprop-img-right">
+        <img src="images/Rectangle 127.webp" alt="Stock market data candlestick chart" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 9: STATS COUNTERS
+  ============================================================ -->
+  <section class="stats-section" id="stats">
+    <div class="stats-grid" id="stats-grid">
+      
+      <div class="stat-item">
+        <span class="stat-number">15k</span>
+        <h4 class="stat-label">Projects completed</h4>
+        <p class="stat-desc">We deliver high-quality solutions tailored to meet the unique needs of every single client.</p>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-number">98%</span>
+        <h4 class="stat-label">Client satisfaction</h4>
+        <p class="stat-desc">Our commitment to excellence ensures that our partners achieve their goals every time.</p>
+      </div>
+
+      <div class="stat-item">
+        <span class="stat-number">30+</span>
+        <h4 class="stat-label">Years of experiences</h4>
+        <p class="stat-desc">Decades of industry leadership allow us to navigate complex challenges with total ease.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE SECTION 10: CLOSING STATEMENT BANNER
+  ============================================================ -->
+  <section class="closing-banner-section" id="closing-banner">
+    <p class="closing-statement-text">
+      We specialize in tailored solutions for business growth and efficiency, optimizing operations with expert guidance and innovative strategies for sustainable success.
+    </p>
+  </section>
+
+  <!-- ============================================================
+       NEW SECTION 11: TRACK RECORD & CUSTOMIZED SOLUTIONS GRID
+  ============================================================ -->
+  <section class="track-record-section" id="track-record">
+    <div class="track-record-grid" id="track-record-grid">
+      
+      <!-- Left Column with 3 Cards -->
+      <div class="track-left-col">
+        
+        <div class="track-top-row">
+          <!-- Card 1: Proven Track Record -->
+          <div class="track-card">
+            <div class="track-card-img">
+              <img src="images/Rectangle 129.webp" alt="Business plan schedule notebook" />
+            </div>
+            <h3 class="track-card-title">Proven track record</h3>
+            <p class="track-card-desc">Delivering consistent, successful outcomes, showcasing in every project we undertake.</p>
+            <div class="track-mini-stats">
+              <div class="track-mini-stat">
+                <span class="track-mini-num">120+</span>
+                <span class="track-mini-label">Projects</span>
+              </div>
+              <div class="track-mini-divider"></div>
+              <div class="track-mini-stat">
+                <span class="track-mini-num">12+</span>
+                <span class="track-mini-label">Years</span>
+              </div>
+              <div class="track-mini-divider"></div>
+              <div class="track-mini-stat">
+                <span class="track-mini-num">8</span>
+                <span class="track-mini-label">Industries</span>
+              </div>
+            </div>
+            <div class="track-quote-block">
+              <p class="track-quote-text">"Their strategic insight transformed our operations and doubled our revenue within a year."</p>
+              <span class="track-quote-author">— Sarah M., CEO of NovaCorp</span>
+            </div>
+            <a href="about.html" class="track-link">Learn more</a>
+          </div>
+
+          <!-- Card 2: Awesome Clients -->
+          <div class="track-card">
+            <span class="track-stat-num">56+</span>
+            <h3 class="track-card-title" style="font-size: 21px;">Awesome clients</h3>
+            <p class="track-card-desc" style="font-size: 14px; line-height: 1.5; color: #444;">Partnering with exceptional clients to achieve remarkable results worldwide.</p>
+            <div class="track-client-pills">
+              <span class="track-pill">🏆 Fortune 500</span>
+              <span class="track-pill">🌍 Global Reach</span>
+              <span class="track-pill">⭐ 98% Satisfaction</span>
+            </div>
+            <div class="track-rating-block">
+              <span class="track-rating-score">4.9 / 5</span>
+              <div class="track-stars">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="track-rating-text">Average rating from 56+ satisfied clients</span>
+            </div>
+            <a href="about.html" class="track-link">Meet our clients</a>
+          </div>
+        </div>
+
+        <!-- Card 3: Customized Solutions Horizontal Card -->
+        <div class="customized-card">
+          <div class="customized-text">
+            <p class="customized-subtext">Tailored solutions designed to meet your unique business needs and goals.</p>
+            <h3 class="customized-title">Customized solutions</h3>
+          </div>
+          <div class="customized-img">
+            <img src="images/Rectangle 132.webp" alt="Strategy wooden blocks" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Tall Portrait Image -->
+      <div class="track-right-col">
+        <img src="images/Rectangle 131.webp" alt="Executive corporate presentation" />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NEW SECTION 12: SUSTAINABILITY CONSULTING & ARCH BADGE
+  ============================================================ -->
+  <section class="sustainability-section" id="sustainability">
+    <div class="sustainability-grid" id="sustainability-grid">
+      
+      <div class="sustain-left">
+        <h2>Sustainability strategy consulting</h2>
+        
+        <div class="sustain-accordion-box">
+          <div class="sustain-accordion-header">
+            <span>Consultation and assessment</span>
+          </div>
+          <p class="sustain-accordion-body">Through comprehensive assessments and discussions, we gain insights into your specific needs and objectives, laying the foundation for our collaboration.</p>
+        </div>
+      </div>
+
+      <div class="arch-badge-wrapper">
+        <div class="arch-card">
+          <img src="images/Rectangle 133.webp" alt="SWOT Analysis executive document" />
+        </div>
+
+        <div class="years-badge">
+          <span class="years-num">25+</span>
+          <span class="years-label">Years Of Experience</span>
+        </div>
+
+        <div class="arch-card">
+          <img src="images/Rectangle 134.webp" alt="Executive presentation flipchart" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NEW SECTION 13: DARK FOOTER WITH WATERMARK
+  ============================================================ -->
+  <footer class="site-footer" id="footer">
+    
+    <div class="footer-grid">
+      
+      <!-- Col 1: Brand & Newsletter -->
+      <div class="footer-col-brand">
+        <div class="footer-logo">
+          <img src="images/Frame 808.webp" alt="Stackly Logo" />
+        </div>
+        
+        <h3>Got Event in Mind?<br>Let's collaborate.</h3>
+
+        <form class="newsletter-form" onsubmit="event.preventDefault(); const emailInput = this.querySelector('input[type=email]'); if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) { window.location.href = '404.html'; } else if (emailInput) { emailInput.reportValidity(); }">
+          <input type="email" placeholder="Enter your email" class="newsletter-input" required />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+
+        <p class="footer-brand-desc">Delivering expert business consulting solutions that drive growth, efficiency, and measurable results for companies worldwide.</p>
+      </div>
+
+      <!-- Col 2: Contact us -->
+      <div class="footer-col-contact">
+        <h4>Contact us</h4>
+        <div class="footer-contact-info">
+          <p>+1 (800) 555-1234</p>
+          <p>Evolve Studio, 4th Floor,<br>Khata No 10, Begur - Koppa Rd,<br>In front of SNN Raj Serenity,<br>Suraksha Nagar, Yelenahalli,<br>Begur, Bengaluru,<br>Karnataka -560068</p>
+          <p>info@stacklyhealth.com</p>
+          <p>+91 98765 43210</p>
+        </div>
+      </div>
+
+      <!-- Col 3: Links -->
+      <div class="footer-col-links">
+        <h4>Links</h4>
+        <ul class="footer-nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Follow us -->
+      <div class="footer-col-social">
+        <h4>Follow us</h4>
+        <div class="social-icons">
+          <!-- Instagram -->
+          <a href="404.html" class="social-icon-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- X / Twitter -->
+          <a href="404.html" class="social-icon-link" aria-label="X Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="404.html" class="social-icon-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="404.html" class="social-icon-link" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Giant STACKLY Watermark -->
+    <div class="footer-watermark">
+      <img src="images/fa2d55a2-c87a-4ebe-a1ba-81d49dcd09f5 2.webp" alt="STACKLY Watermark" />
+    </div>
+
+  </footer>
+
+  <!-- ============================================================
+       INTERACTIVE JAVASCRIPT
+  ============================================================ -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-toggle');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+
+    function closeMobileMenu() {
+      if (hamburgerBtn && hamburgerBtn.classList.contains('open')) {
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        if (mobileDropdown) {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      }
+    }
+
+    if (hamburgerBtn && mobileDropdown) {
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('open');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        if (isOpen) {
+          mobileDropdown.style.display = 'flex';
+          requestAnimationFrame(() => {
+            mobileDropdown.classList.add('active');
+          });
+        } else {
+          mobileDropdown.classList.remove('active');
+          setTimeout(() => {
+            mobileDropdown.style.display = 'none';
+          }, 350);
+        }
+      });
+
+      mobileDropdown.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+    }
+
+    // Lower threshold + no negative margin = works on all screen sizes
+    const isMobile = window.innerWidth <= 768;
+    const observerOptions = {
+      threshold: isMobile ? 0 : 0.08,
+      rootMargin: isMobile ? '0px' : '0px 0px -20px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Small delay stagger so animations don't all fire at once
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, 60);
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const animatedEls = [
+      ...document.querySelectorAll('.service-card'),
+      'center-img-col', 'headline-col', 'growth-header',
+      'showcase-back', 'showcase-front', 'trust-banner',
+      'campaign-card-1', 'campaign-card-2', 'smart-grid',
+      'accordion-grid', 'join-container', 'valprop-grid',
+      'stats-grid', 'closing-banner', 'track-record-grid',
+      'sustainability-grid'
+    ];
+
+    animatedEls.forEach((el) => {
+      const target = typeof el === 'string' ? document.getElementById(el) : el;
+      if (target) scrollObserver.observe(target);
+    });
+
+    // Mobile fallback: if very small screen and element is already in view on load, show it immediately
+    if (isMobile) {
+      document.querySelectorAll(
+        '.service-card, #center-img-col, #headline-col, #growth-header, ' +
+        '#showcase-back, #showcase-front, #trust-banner, #campaign-card-1, ' +
+        '#campaign-card-2, #smart-grid, #accordion-grid, #join-container, ' +
+        '#valprop-grid, #stats-grid, #closing-banner, #track-record-grid, ' +
+        '#sustainability-grid'
+      ).forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('is-visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroEl = document.getElementById('hero');
+      if (heroEl && scrollY < heroEl.offsetHeight) {
+        const bgImg = heroEl.querySelector('.hero-bg-layer img');
+        if (bgImg) {
+          bgImg.style.transform = `scale(1.03) translateY(${scrollY * 0.2}px)`;
+        }
+      }
+    }, { passive: true });
+  </script>
+
+  <!-- Super Cool Preloader Script -->
+  <script src="preloader.js"></script>
+</body>
+</html>
