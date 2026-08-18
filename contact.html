@@ -410,35 +410,90 @@
     .faq-list {
       display: flex;
       flex-direction: column;
+      border-top: 1px solid #ebebeb;
     }
     .faq-item {
+      border-bottom: 1px solid #ebebeb;
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+    }
+    .faq-item.active {
+      background: #fafafa;
+      border-radius: 14px;
+      margin: 8px 0;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    }
+    .faq-question {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 0;
-      border-bottom: 1px solid #ebebeb;
-      color: #222;
-      font-size: 15px;
-      font-weight: 500;
+      gap: 16px;
+      padding: 22px 14px;
+      background: none;
+      border: none;
+      color: #222222;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
       cursor: pointer;
-      transition: background 0.2s ease, padding 0.2s ease;
+      transition: color 0.2s ease, padding 0.25s ease;
     }
-    .faq-item:first-child { border-top: 1px solid #ebebeb; }
-    .faq-item:hover {
-      background: #fafafa;
-      padding: 20px 16px;
-      border-radius: 8px;
+    .faq-item:not(.active) .faq-question:hover {
+      color: #000000;
+      background: #fdfdfd;
+      padding-left: 18px;
     }
-    .faq-item svg {
-      width: 18px;
-      height: 18px;
-      stroke: #111;
-      stroke-width: 2;
+    .faq-item.active .faq-question {
+      color: #000000;
+      font-weight: 700;
+      padding: 22px 20px 14px;
+    }
+    .faq-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+    }
+    .faq-icon-wrap svg {
+      width: 14px;
+      height: 14px;
+      stroke: #111111;
+      stroke-width: 2.2;
       fill: none;
-      transition: transform 0.25s ease;
+      transition: transform 0.35s ease, stroke 0.25s ease;
     }
-    .faq-item:hover svg {
-      transform: translateX(4px);
+    .faq-item.active .faq-icon-wrap {
+      background: #111111;
+      transform: rotate(90deg);
+    }
+    .faq-item.active .faq-icon-wrap svg {
+      stroke: #ffffff;
+    }
+    .faq-answer {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, padding 0.3s ease;
+      padding: 0 14px;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 250px;
+      opacity: 1;
+      padding: 0 20px 22px;
+    }
+    .faq-answer p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #555555;
+      max-width: 960px;
     }
 
     /* ============================================================
@@ -591,7 +646,13 @@
       .contact-hero { padding: 28px 16px 20px; }
       .get-in-touch-section { padding: 24px 16px; }
       .form-card-container { padding: 24px 18px; }
-      .faq-section { padding: 24px 16px; }
+      .faq-section { padding: 28px 16px; }
+      .faq-question { font-size: 14.5px; padding: 18px 10px; }
+      .faq-item.active .faq-question { padding: 18px 14px 10px; }
+      .faq-item.active .faq-answer { padding: 0 14px 18px; }
+      .faq-answer p { font-size: 13.5px; line-height: 1.6; }
+      .faq-icon-wrap { width: 28px; height: 28px; }
+      .btn-ask-anything { width: 100%; text-align: center; }
       .map-banner-section { padding: 24px 16px 36px; }
       .map-img-card { height: 180px; }
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -749,56 +810,112 @@
   </section>
 
   <!-- SECTION 3: FREQUENTLY ASKED QUESTIONS -->
-  <section class="faq-section">
+  <section class="faq-section" id="faq">
     <span class="faq-tag anim-fade-up">Frequently asked questions</span>
     
     <div class="faq-header-row anim-fade-up">
       <div class="faq-header-left">
         <h2>Got Questions?<br>We've Got Answers</h2>
       </div>
-      <a href="404.html" class="btn-ask-anything">Ask Us Anything</a>
+      <a href="#contact-form" class="btn-ask-anything">Ask Us Anything</a>
     </div>
 
-    <div class="faq-list anim-fade-up">
-      <a href="404.html" class="faq-item">
-        <span>What services does Leanor provide?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+    <div class="faq-list anim-fade-up" id="faq-accordion">
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>What services does Stackly provide?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>We provide comprehensive strategic advisory, growth planning, performance marketing, operations streamlining, data analytics, and organizational scaling solutions tailored to your specific business objectives.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>Who can benefit from Leanor's expertise?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Who can benefit from Stackly's expertise?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>Our solutions cater to high-growth startups seeking scalable frameworks, mid-market companies optimizing operations, and established corporate enterprises modernizing strategy and expanding market share.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>How do you start working with new clients?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How do you start working with new clients?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>We kick off with an in-depth discovery audit to assess your current performance, identify growth barriers, and align on key deliverables, followed by an actionable execution roadmap with clear milestones.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>What industries do you serve?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>What industries do you serve?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>We specialize across technology & SaaS, supply chain & logistics, healthcare, finance & fintech, e-commerce, and modern consumer goods brands.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>Can you handle international projects?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>Can you handle international projects?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We have managed cross-border strategies and international expansion initiatives for clients operating across North America, Europe, Asia-Pacific, and the Middle East.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>How do you measure success?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How do you measure success?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>Every partnership is grounded in quantifiable KPIs, such as revenue uplift, cost reduction, customer retention rate, conversion efficiency, and operational speed gains.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>How long does a typical project take?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How long does a typical project take?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>Targeted strategy audits typically conclude in 4 to 8 weeks, while full execution, organizational transformation, and scale advisory engagements typically span 3 to 12 months.</p>
+        </div>
+      </div>
 
-      <a href="404.html" class="faq-item">
-        <span>How can I get started?</span>
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span>How can I get started?</span>
+          <span class="faq-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p>Simply submit your details using the contact form on this page or email us directly at hello@example.com. Our senior consulting team will reach out within 24 hours to schedule your strategy session.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -937,6 +1054,32 @@
         }
       });
     }
+
+    // FAQ Accordion Dropdown Functionality
+    document.querySelectorAll('.faq-question').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isActive = item.classList.contains('active');
+
+        // Close other open FAQ items
+        document.querySelectorAll('.faq-item').forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            const otherBtn = otherItem.querySelector('.faq-question');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current item
+        if (isActive) {
+          item.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
   </script>
 
   <!-- Super Cool Preloader Script -->
